@@ -1,0 +1,9 @@
+{
+  "incidents": [],
+  "templates": {},
+  "statistics": {
+    "totalIncidents": 0,
+    "resolvedIncidents": 0,
+    "averageResolutionTime": 0
+  }
+}

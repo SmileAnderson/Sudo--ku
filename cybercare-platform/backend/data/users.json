@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": "user_001",
+      "idno": "1234567890124",
+      "email": "admin1@company.md",
+      "passwordHash": "$2b$10$example.hash.here",
+      "companyName": "Example Company SRL",
+      "companyId": "comp_001",
+      "role": "admin",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "mfaCode": null,
+      "mfaExpiry": null,
+      "lastLogin": null
+    },
+    {
+      "id": "user_1757772492658",
+      "idno": "1234567890122",
+      "email": "super@sudoku.md",
+      "passwordHash": "$2b$10$fi3yBou9a7fs9VieSWamv.y072zmHNL9NnKK0b.ULfbyixjQV4Aoe",
+      "companyName": "Sudo -ku",
+      "companyId": "comp_1757772492658",
+      "role": "admin",
+      "createdAt": "2025-09-13T14:08:12.658Z",
+      "mfaCode": "235955",
+      "mfaExpiry": "2025-09-13T14:30:21.881Z",
+      "lastLogin": null
+    }
+  ]
+}

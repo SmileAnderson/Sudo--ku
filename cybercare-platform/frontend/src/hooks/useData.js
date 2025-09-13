@@ -1,0 +1,333 @@
+// src/hooks/useData.js - Custom hooks for data management
+import { useState, useEffect } from 'react';
+import apiService from '../services/api';
+
+// Hook for compliance data
+export const useCompliance = () => {
+  const [complianceData, setComplianceData] = useState({
+    score: 0,
+    checks: {},
+    lastScan: null,
+    history: []
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchComplianceData = async () => {
+    try {
+      setLoading(true);
+      const data = await apiService.getComplianceData();
+      setComplianceData(data);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Failed to fetch compliance data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateComplianceCheck = async (category, itemId, checked) => {
+    try {
+      const updatedData = await apiService.updateComplianceCheck(category, itemId, checked);
+      setComplianceData(updatedData);
+      return updatedData;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const updateComplianceScore = async (auditResults) => {
+    try {
+      const updatedData = await apiService.updateComplianceScore(auditResults);
+      setComplianceData(updatedData);
+      return updatedData;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchComplianceData();
+  }, []);
+
+  return {
+    complianceData,
+    loading,
+    error,
+    updateComplianceCheck,
+    updateComplianceScore,
+    refetch: fetchComplianceData
+  };
+};
+
+// Hook for training data
+export const useTraining = () => {
+  const [trainingData, setTrainingData] = useState({
+    completedModules: [],
+    currentScore: 0,
+    streak: 0,
+    badges: [],
+    progress: {},
+    leaderboard: []
+  });
+  const [modules, setModules] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchTrainingData = async () => {
+    try {
+      setLoading(true);
+      const [data, modulesList] = await Promise.all([
+        apiService.getTrainingData(),
+        apiService.getTrainingModules()
+      ]);
+      setTrainingData(data);
+      setModules(modulesList);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Failed to fetch training data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const completeModule = async (moduleId, score, answers) => {
+    try {
+      const updatedData = await apiService.completeTrainingModule(moduleId, score, answers);
+      setTrainingData(updatedData);
+      return updatedData;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const getQuestions = async (moduleId) => {
+    try {
+      return await apiService.getTrainingQuestions(moduleId);
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchTrainingData();
+  }, []);
+
+  return {
+    trainingData,
+    modules,
+    loading,
+    error,
+    completeModule,
+    getQuestions,
+    refetch: fetchTrainingData
+  };
+};
+
+// Hook for incidents
+export const useIncidents = () => {
+  const [incidents, setIncidents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchIncidents = async () => {
+    try {
+      setLoading(true);
+      const data = await apiService.getIncidents();
+      setIncidents(data);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Failed to fetch incidents:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createIncident = async (incidentData) => {
+    try {
+      const newIncident = await apiService.createIncident(incidentData);
+      setIncidents(prev => [newIncident, ...prev]);
+      return newIncident;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const updateIncident = async (id, updates) => {
+    try {
+      const updatedIncident = await apiService.updateIncident(id, updates);
+      setIncidents(prev => prev.map(inc => inc.id === id ? updatedIncident : inc));
+      return updatedIncident;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchIncidents();
+  }, []);
+
+  return {
+    incidents,
+    loading,
+    error,
+    createIncident,
+    updateIncident,
+    refetch: fetchIncidents
+  };
+};
+
+// Hook for audit results
+export const useAudit = () => {
+  const [auditResults, setAuditResults] = useState(null);
+  const [riskAssessment, setRiskAssessment] = useState(null);
+  const [isScanning, setIsScanning] = useState(false);
+  const [error, setError] = useState(null);
+
+  const startAudit = async (target = 'example.com') => {
+    try {
+      setIsScanning(true);
+      setAuditResults({ loading: true });
+      setError(null);
+      
+      await apiService.startAudit(target);
+      
+      // Poll for results
+      const pollResults = async () => {
+        try {
+          const results = await apiService.getAuditResults();
+          if (results && results.status === 'completed') {
+            setAuditResults(results);
+            setIsScanning(false);
+            
+            // Generate risk assessment
+            const risks = await apiService.generateRiskAssessment(results);
+            setRiskAssessment(risks);
+          } else if (results && results.status === 'running') {
+            // Continue polling
+            setTimeout(pollResults, 2000);
+          } else {
+            setIsScanning(false);
+          }
+        } catch (err) {
+          setError(err.message);
+          setIsScanning(false);
+        }
+      };
+      
+      // Start polling after initial delay
+      setTimeout(pollResults, 3000);
+      
+    } catch (err) {
+      setError(err.message);
+      setIsScanning(false);
+      setAuditResults(null);
+    }
+  };
+
+  const getAuditHistory = async (limit = 10) => {
+    try {
+      return await apiService.getAuditHistory(limit);
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  return {
+    auditResults,
+    riskAssessment,
+    isScanning,
+    error,
+    startAudit,
+    getAuditHistory
+  };
+};
+
+// Hook for notifications
+export const useNotifications = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchNotifications = async () => {
+    try {
+      setLoading(true);
+      const [notificationsList, countData] = await Promise.all([
+        apiService.getNotifications(),
+        apiService.getUnreadCount()
+      ]);
+      setNotifications(notificationsList);
+      setUnreadCount(countData.count);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Failed to fetch notifications:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const markAsRead = async (id) => {
+    try {
+      await apiService.markNotificationAsRead(id);
+      setNotifications(prev => 
+        prev.map(n => n.id === id ? { ...n, read: true } : n)
+      );
+      setUnreadCount(prev => Math.max(0, prev - 1));
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const markAllAsRead = async () => {
+    try {
+      await apiService.markAllNotificationsAsRead();
+      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+      setUnreadCount(0);
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const deleteNotification = async (id) => {
+    try {
+      await apiService.deleteNotification(id);
+      setNotifications(prev => prev.filter(n => n.id !== id));
+      const notification = notifications.find(n => n.id === id);
+      if (notification && !notification.read) {
+        setUnreadCount(prev => Math.max(0, prev - 1));
+      }
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  return {
+    notifications,
+    unreadCount,
+    loading,
+    error,
+    markAsRead,
+    markAllAsRead,
+    deleteNotification,
+    refetch: fetchNotifications
+  };
+};

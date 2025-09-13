@@ -1,0 +1,33 @@
+{
+  "completedModules": [],
+  "currentScore": 0,
+  "streak": 0,
+  "badges": [],
+  "progress": {},
+  "leaderboard": [
+    {
+      "name": "Alexandru Popescu",
+      "department": "IT Security",
+      "points": 1250,
+      "position": 1
+    },
+    {
+      "name": "Maria Ionescu",
+      "department": "Finance",
+      "points": 980,
+      "position": 2
+    },
+    {
+      "name": "Dmitri Petrov",
+      "department": "Operations",
+      "points": 720,
+      "position": 4
+    },
+    {
+      "name": "Ana Muresan",
+      "department": "HR",
+      "points": 650,
+      "position": 5
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "notifications": [
+    {
+      "id": 1,
+      "type": "warning",
+      "message": "Password policy review due in 7 days",
+      "time": "2 hours ago",
+      "timestamp": "2025-09-13T14:42:06.951Z",
+      "read": false
+    },
+    {
+      "id": 2,
+      "type": "info",
+      "message": "New cybersecurity training module available",
+      "time": "1 day ago",
+      "timestamp": "2025-09-12T14:42:06.951Z",
+      "read": false
+    },
+    {
+      "id": 3,
+      "type": "critical",
+      "message": "2 high-priority vulnerabilities detected",
+      "time": "3 days ago",
+      "timestamp": "2025-09-10T14:42:06.951Z",
+      "read": false
+    }
+  ],
+  "settings": {
+    "emailNotifications": true,
+    "pushNotifications": true,
+    "weeklyReports": true
+  }
+}
