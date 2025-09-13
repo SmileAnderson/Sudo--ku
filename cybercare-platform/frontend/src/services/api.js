@@ -57,55 +57,6 @@ class ApiService {
     return this.request('/compliance/export');
   }
 
-  // Training API
-  async getTrainingData() {
-    return this.request('/training');
-  }
-
-  async getTrainingModules() {
-    return this.request('/training/modules');
-  }
-
-  async getTrainingQuestions(moduleId) {
-    return this.request(`/training/questions/${moduleId}`);
-  }
-
-  async completeTrainingModule(moduleId, score, answers) {
-    return this.request('/training/complete', {
-      method: 'POST',
-      body: { moduleId, score, answers }
-    });
-  }
-
-  async updateLeaderboard(userScore) {
-    return this.request('/training/leaderboard', {
-      method: 'PUT',
-      body: { userScore }
-    });
-  }
-
-  // Incidents API
-  async getIncidents() {
-    return this.request('/incidents');
-  }
-
-  async createIncident(incidentData) {
-    return this.request('/incidents', {
-      method: 'POST',
-      body: incidentData
-    });
-  }
-
-  async updateIncident(id, updates) {
-    return this.request(`/incidents/${id}`, {
-      method: 'PUT',
-      body: updates
-    });
-  }
-
-  async getIncidentStats() {
-    return this.request('/incidents/stats/overview');
-  }
 
   // Audit API
   async startAudit(target) {

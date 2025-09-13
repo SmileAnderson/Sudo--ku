@@ -1,11 +1,10 @@
 // src/App.js - Complete modified application with authentication
 import React, { useState, useEffect } from 'react';
-import { HelpCircle, LogOut } from 'lucide-react';
+import { HelpCircle, LogOut, BarChart3, CheckCircle, GraduationCap, AlertTriangle, FileText } from 'lucide-react';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Dashboard from './components/Dashboard';
 import ComplianceTab from './components/ComplianceTab';
-import TrainingTab from './components/TrainingTab';
 import IncidentTab from './components/IncidentTab';
 import ResourcesTab from './components/ResourcesTab';
 import QAPage from './components/QAPage';
@@ -99,14 +98,13 @@ const App = () => {
     };
   }, []);
 
-  // Enhanced navigation with Q&A tab
+  // Enhanced navigation without icons in the navigation tabs
   const navigationTabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: 'BarChart3' },
-    { id: 'compliance', label: 'Compliance', icon: 'CheckCircle' },
-    { id: 'qa', label: 'Quick Assessment', icon: 'HelpCircle' },
-    { id: 'training', label: 'Training', icon: 'GraduationCap' },
-    { id: 'incidents', label: 'Incidents', icon: 'AlertTriangle' },
-    { id: 'resources', label: 'Resources', icon: 'FileText' }
+    { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
+    { id: 'compliance', label: 'Compliance', icon: CheckCircle },
+    { id: 'qa', label: 'Quick Assessment', icon: HelpCircle },
+    { id: 'incidents', label: 'Incidents', icon: AlertTriangle },
+    { id: 'resources', label: 'Resources', icon: FileText }
   ];
 
   const renderTabContent = () => {
@@ -117,8 +115,6 @@ const App = () => {
         return <ComplianceTab />;
       case 'qa':
         return <QAPage />;
-      case 'training':
-        return <TrainingTab />;
       case 'incidents':
         return <IncidentTab />;
       case 'resources':
@@ -186,19 +182,10 @@ const App = () => {
 
   // Enhanced Navigation with Q&A tab
   const EnhancedNavigation = ({ activeTab, setActiveTab }) => {
-    const iconMap = {
-      BarChart3: () => <span>📊</span>,
-      CheckCircle: () => <span>✅</span>,
-      HelpCircle: () => <HelpCircle size={18} />,
-      GraduationCap: () => <span>🎓</span>,
-      AlertTriangle: () => <span>⚠️</span>,
-      FileText: () => <span>📄</span>
-    };
-
     return (
       <nav style={styles.nav}>
         {navigationTabs.map((tab) => {
-          const IconComponent = iconMap[tab.icon];
+          const IconComponent = tab.icon;
           return (
             <button
               key={tab.id}
@@ -208,7 +195,7 @@ const App = () => {
                 ...(activeTab === tab.id ? styles.navBtnActive : styles.navBtnInactive)
               }}
             >
-              <IconComponent />
+              {IconComponent && <IconComponent size={18} />}
               {tab.label}
             </button>
           );
@@ -304,25 +291,6 @@ const App = () => {
               onMouseLeave={(e) => e.target.style.color = '#cbd5e1'}
             >
               Automated Security Audits
-            </button>
-            <button 
-              onClick={() => setActiveTab('training')} 
-              style={{
-                display: 'block', 
-                fontSize: '14px', 
-                color: '#cbd5e1', 
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                textAlign: 'left',
-                padding: '2px 0',
-                marginBottom: '8px',
-                transition: 'color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.color = '#f8fafc'}
-              onMouseLeave={(e) => e.target.style.color = '#cbd5e1'}
-            >
-              Professional Training Programs
             </button>
             <button 
               onClick={() => setActiveTab('qa')} 

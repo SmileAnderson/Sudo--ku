@@ -80,45 +80,6 @@ export const COMPLIANCE_CHECKLIST = {
   }
 };
 
-export const TRAINING_QUESTIONS = {
-  phishing: [
-    {
-      question: "You receive an urgent email from your 'bank' asking you to verify your account. What should you do?",
-      options: [
-        "Click the link immediately to secure your account",
-        "Call your bank directly using their official number",
-        "Forward the email to your IT department",
-        "Reply with your account details"
-      ],
-      correct: 1,
-      explanation: "Always verify requests independently through official channels."
-    },
-    {
-      question: "Which of these is a red flag in a phishing email?",
-      options: [
-        "Proper company logo",
-        "Urgent language with threats",
-        "Your correct name in greeting",
-        "Professional formatting"
-      ],
-      correct: 1,
-      explanation: "Phishing emails often use urgency and threats to pressure quick action."
-    }
-  ],
-  passwords: [
-    {
-      question: "What makes a password strong?",
-      options: [
-        "Using your birthday",
-        "12+ characters with mixed types",
-        "Your pet's name",
-        "Simple words"
-      ],
-      correct: 1,
-      explanation: "Strong passwords are long and use uppercase, lowercase, numbers, and symbols."
-    }
-  ]
-};
 
 export const API_BASE_URL = process.env.NODE_ENV === 'production' 
   ? 'https://your-domain.com' 
@@ -127,7 +88,6 @@ export const API_BASE_URL = process.env.NODE_ENV === 'production'
 export const TAB_CONFIG = [
   { id: 'dashboard', label: 'Dashboard', icon: 'BarChart3' },
   { id: 'compliance', label: 'Compliance', icon: 'CheckCircle' },
-  { id: 'training', label: 'Training', icon: 'GraduationCap' },
   { id: 'incidents', label: 'Incidents', icon: 'AlertTriangle' },
   { id: 'resources', label: 'Resources', icon: 'FileText' }
 ];

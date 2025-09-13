@@ -8,14 +8,14 @@ import {
   RefreshCw, 
   AlertCircle, 
   FileCheck, 
-  Bell 
+  Bell,
+  HelpCircle 
 } from 'lucide-react';
 import { styles } from '../styles/styles';
-import { useCompliance, useTraining, useAudit, useNotifications } from '../hooks/useData';
+import { useCompliance, useAudit, useNotifications } from '../hooks/useData';
 
 const Dashboard = ({ setActiveTab }) => {
   const { complianceData } = useCompliance();
-  const { trainingData, modules } = useTraining();
   const { auditResults, riskAssessment, isScanning, startAudit } = useAudit();
   const { notifications } = useNotifications();
 
@@ -77,7 +77,6 @@ const Dashboard = ({ setActiveTab }) => {
             <div>
               <p style={styles.metricLabel}>Training Progress</p>
               <p style={{...styles.metric, color: '#8b5cf6'}}>
-                {trainingData.completedModules.length}/{modules.length}
               </p>
               <p style={{...styles.metricLabel, marginTop: '8px'}}>Modules completed</p>
             </div>
@@ -86,66 +85,66 @@ const Dashboard = ({ setActiveTab }) => {
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div style={styles.card}>
-        <h3 style={{fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#0f172a'}}>
-          Quick Actions
-        </h3>
-        <div style={styles.grid4}>
-          <button 
-            onClick={startAudit}
-            disabled={isScanning}
-            style={{
-              ...styles.btn, 
-              ...styles.btnPrimary, 
-              justifyContent: 'center', 
-              padding: '16px',
-              opacity: isScanning ? 0.6 : 1
-            }}
-          >
-            <RefreshCw size={20} className={isScanning ? 'spinning' : ''} />
-            <div>
-              <div style={{fontWeight: '600'}}>
-                {isScanning ? 'Scanning...' : 'Run Security Audit'}
-              </div>
-              <div style={{fontSize: '12px', opacity: 0.8}}>Full system scan</div>
-            </div>
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab('training')}
-            style={{...styles.btn, ...styles.btnSuccess, justifyContent: 'center', padding: '16px'}}
-          >
-            <GraduationCap size={20} />
-            <div>
-              <div style={{fontWeight: '600'}}>Start Training</div>
-              <div style={{fontSize: '12px', opacity: 0.8}}>Learn & earn credits</div>
-            </div>
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab('incidents')}
-            style={{...styles.btn, ...styles.btnWarning, justifyContent: 'center', padding: '16px'}}
-          >
-            <AlertCircle size={20} />
-            <div>
-              <div style={{fontWeight: '600'}}>Report Incident</div>
-              <div style={{fontSize: '12px', opacity: 0.8}}>Emergency response</div>
-            </div>
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab('compliance')}
-            style={{...styles.btn, ...styles.btnSecondary, justifyContent: 'center', padding: '16px'}}
-          >
-            <FileCheck size={20} />
-            <div>
-              <div style={{fontWeight: '600'}}>Review Compliance</div>
-              <div style={{fontSize: '12px', opacity: 0.8}}>Check requirements</div>
-            </div>
-          </button>
+     /* Quick Actions */
+<div style={styles.card}>
+  <h3 style={{fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#0f172a'}}>
+    Quick Actions
+  </h3>
+  <div style={styles.grid4}>
+    <button 
+      onClick={startAudit}
+      disabled={isScanning}
+      style={{
+        ...styles.btn, 
+        ...styles.btnPrimary, 
+        justifyContent: 'center', 
+        padding: '16px',
+        opacity: isScanning ? 0.6 : 1
+      }}
+    >
+      <RefreshCw size={20} className={isScanning ? 'spinning' : ''} />
+      <div>
+        <div style={{fontWeight: '600'}}>
+          {isScanning ? 'Scanning...' : 'Run Security Audit'}
         </div>
+        <div style={{fontSize: '12px', opacity: 0.8}}>Full system scan</div>
       </div>
+    </button>
+    
+    <button
+      onClick={() => setActiveTab('qa')}
+      style={{...styles.btn, ...styles.btnAccent, justifyContent: 'center', padding: '16px'}}
+    >
+      <HelpCircle size={20} />
+      <div>
+        <div style={{fontWeight: '600'}}>Quick Assessment</div>
+        <div style={{fontSize: '12px', opacity: 0.8}}>Initial risk check</div>
+      </div>
+    </button>
+    
+    <button 
+      onClick={() => setActiveTab('compliance')}
+      style={{...styles.btn, ...styles.btnSecondary, justifyContent: 'center', padding: '16px'}}
+    >
+      <FileCheck size={20} />
+      <div>
+        <div style={{fontWeight: '600'}}>Review Compliance</div>
+        <div style={{fontSize: '12px', opacity: 0.8}}>Check requirements</div>
+      </div>
+    </button>
+    
+    <button 
+      onClick={() => setActiveTab('incidents')}
+      style={{...styles.btn, ...styles.btnWarning, justifyContent: 'center', padding: '16px'}}
+    >
+      <AlertCircle size={20} />
+      <div>
+        <div style={{fontWeight: '600'}}>Report Incident</div>
+        <div style={{fontSize: '12px', opacity: 0.8}}>Emergency response</div>
+      </div>
+    </button>
+  </div>
+</div>
 
       {/* Audit Results */}
       {auditResults && (
