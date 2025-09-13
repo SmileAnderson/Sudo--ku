@@ -1,4 +1,4 @@
-// src/services/api.js - API communication service
+// src/services/api.js - Complete API communication service
 import { API_BASE_URL } from '../data/constants';
 
 class ApiService {
@@ -34,53 +34,131 @@ class ApiService {
     }
   }
 
+  // Auth API
+  async login(credentials) {
+    return this.request('/api/auth/login', {
+      method: 'POST',
+      body: credentials
+    });
+  }
+
+  async register(userData) {
+    return this.request('/api/auth/register', {
+      method: 'POST',
+      body: userData
+    });
+  }
+
+  async verifyMFA(data) {
+    return this.request('/api/auth/verify-mfa', {
+      method: 'POST',
+      body: data
+    });
+  }
+
+  async resendMFA(email) {
+    return this.request('/api/auth/resend-mfa', {
+      method: 'POST',
+      body: { email }
+    });
+  }
+
   // Compliance API
   async getComplianceData() {
-    return this.request('/compliance');
+    return this.request('/api/compliance');
   }
 
   async updateComplianceCheck(category, itemId, checked) {
-    return this.request('/compliance/check', {
+    return this.request('/api/compliance/check', {
       method: 'PUT',
       body: { category, itemId, checked }
     });
   }
 
   async updateComplianceScore(auditResults) {
-    return this.request('/compliance/score', {
+    return this.request('/api/compliance/score', {
       method: 'PUT',
       body: { auditResults }
     });
   }
 
   async exportComplianceReport() {
-    return this.request('/compliance/export');
+    return this.request('/api/compliance/export');
   }
 
+  // Training API (if you still need these for the integrated training)
+  async getTrainingData() {
+    return this.request('/api/training');
+  }
+
+  async getTrainingModules() {
+    return this.request('/api/training/modules');
+  }
+
+  async getTrainingQuestions(moduleId) {
+    return this.request(`/api/training/questions/${moduleId}`);
+  }
+
+  async completeTrainingModule(moduleId, score, answers) {
+    return this.request('/api/training/complete', {
+      method: 'POST',
+      body: { moduleId, score, answers }
+    });
+  }
+
+  async updateLeaderboard(userScore) {
+    return this.request('/api/training/leaderboard', {
+      method: 'PUT',
+      body: { userScore }
+    });
+  }
+
+  // Incidents API (MISSING METHODS - THIS WAS YOUR ISSUE!)
+  async getIncidents() {
+    return this.request('/api/incidents');
+  }
+
+  async createIncident(incidentData) {
+    return this.request('/api/incidents', {
+      method: 'POST',
+      body: incidentData
+    });
+  }
+
+  async updateIncident(id, updates) {
+    return this.request(`/api/incidents/${id}`, {
+      method: 'PUT',
+      body: updates
+    });
+  }
+
+  async getIncidentStats() {
+    return this.request('/api/incidents/stats/overview');
+  }
 
   // Audit API
   async startAudit(target) {
-    return this.request('/audit/start', {
+    return this.request('/api/audit/start', {
       method: 'POST',
       body: { target }
     });
   }
 
   async getAuditStatus() {
-    return this.request('/audit/status');
+    return this.request('/api/audit/status');
   }
 
   async getAuditResults(auditId = null) {
-    const endpoint = auditId ? `/audit/results/${auditId}` : '/audit/results';
+    const endpoint = auditId ? `/api/audit/results/${auditId}` : '/api/audit/results';
     return this.request(endpoint);
   }
 
   async getAuditHistory(limit = 10) {
-    return this.request(`/audit/history?limit=${limit}`);
+    return this.request(`/api/audit/history?limit=${limit}`);
   }
 
   async generateRiskAssessment(auditResults) {
-    return this.request('/audit/risk-assessment', {
+    return this.request('/api/audit/risk-assessment', {
       method: 'POST',
       body: { auditResults }
     });
@@ -88,62 +166,62 @@ class ApiService {
 
   // Notifications API
   async getNotifications() {
-    return this.request('/notifications');
+    return this.request('/api/notifications');
   }
 
   async markNotificationAsRead(id) {
-    return this.request(`/notifications/${id}/read`, {
+    return this.request(`/api/notifications/${id}/read`, {
       method: 'PUT'
     });
   }
 
   async markAllNotificationsAsRead() {
-    return this.request('/notifications/read-all', {
+    return this.request('/api/notifications/read-all', {
       method: 'PUT'
     });
   }
 
   async deleteNotification(id) {
-    return this.request(`/notifications/${id}`, {
+    return this.request(`/api/notifications/${id}`, {
       method: 'DELETE'
     });
   }
 
   async getUnreadCount() {
-    return this.request('/notifications/unread-count');
+    return this.request('/api/notifications/unread-count');
   }
 
   // Health check
   async healthCheck() {
-    return this.request('/health');
+    return this.request('/api/health');
   }
 
-  //Auth API
-  async login(credentials) {
-  return this.request('/api/auth/login', {
+  // Assessment-Compliance Sync API methods
+async submitAssessmentAndSync(assessmentAnswers) {
+  return this.request('/api/assessment/submit-and-sync', {
     method: 'POST',
-    body: credentials
+    body: { 
+      answers: assessmentAnswers,
+      syncToCompliance: true 
+    }
   });
 }
 
-async register(userData) {
-  return this.request('/api/auth/register', {
+async syncAssessmentToCompliance(assessmentAnswers) {
+  return this.request('/api/compliance/sync-from-assessment', {
     method: 'POST',
-    body: userData
+    body: { assessmentAnswers }
   });
 }
 
-async verifyMFA(data) {
-  return this.request('/api/auth/verify-mfa', {
-    method: 'POST',
-    body: data
-  });
+async getAssessmentQuestions() {
+  return this.request('/api/assessment/questions');
 }
 
-async resendMFA(email) {
-  return this.request('/api/auth/resend-mfa', {
-    method: 'POST',
-    body: { email }
+async saveAssessmentProgress(answers) {
+  return this.request('/api/assessment/progress', {
+    method: 'PUT',
+    body: { answers }
   });
 }
 }

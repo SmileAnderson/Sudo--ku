@@ -141,7 +141,7 @@ const Header = () => {
             )}
           </div>
           
-          <span style={styles.lawText}>Law No. 142/2023</span>
+          <span style={styles.lawText}>Law No. 48/2023</span>
           <button style={styles.supportBtn}>
             Contact Support
           </button>

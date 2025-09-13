@@ -16,6 +16,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isLoading, setIsLoading] = useState(true);
+  const [complianceData, setComplianceData] = useState(null);
 
   // Check for existing session on mount
   useEffect(() => {
@@ -67,6 +68,30 @@ const App = () => {
     }
   };
 
+  const handleComplianceUpdate = (updates) => {
+  // Update compliance data when assessment syncs
+  setComplianceData(prev => {
+    if (!prev) return prev;
+    
+    const newData = { ...prev };
+    
+    updates.forEach(update => {
+      if (newData.categories && newData.categories[update.category]) {
+        const item = newData.categories[update.category].items.find(
+          item => item.id === update.itemId
+        );
+        if (item) {
+          item.completed = update.checked;
+          item.syncedFromAssessment = update.syncedFromAssessment;
+          item.syncTimestamp = update.syncTimestamp;
+        }
+      }
+    });
+    
+    return newData;
+  });
+};
+  
   // Add CSS animations
   useEffect(() => {
     const style = document.createElement('style');
@@ -108,77 +133,30 @@ const App = () => {
   ];
 
   const renderTabContent = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <Dashboard setActiveTab={setActiveTab} />;
-      case 'compliance':
-        return <ComplianceTab />;
-      case 'qa':
-        return <QAPage />;
-      case 'incidents':
-        return <IncidentTab />;
-      case 'resources':
-        return <ResourcesTab />;
-      default:
-        return <Dashboard setActiveTab={setActiveTab} />;
-    }
-  };
-
-  // Enhanced Header component with logout
-  const EnhancedHeader = () => (
-    <header style={styles.header}>
-      <div style={styles.headerContent}>
-        <div style={styles.logo}>
-          <div style={{
-            width: '32px',
-            height: '32px',
-            backgroundColor: '#3b82f6',
-            borderRadius: '6px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <span style={{color: 'white', fontWeight: 'bold', fontSize: '18px'}}>C</span>
-          </div>
-          <div>
-            <h1 style={styles.logoText}>CyberCare</h1>
-            <p style={styles.logoSubtext}>Moldova Cybersecurity Law Compliance Platform</p>
-          </div>
-        </div>
-        
-        <div style={styles.headerRight}>
-          <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-            {user && (
-              <div style={{textAlign: 'right', marginRight: '12px'}}>
-                <p style={{fontSize: '14px', fontWeight: '600', margin: 0, color: '#0f172a'}}>
-                  {user.companyName}
-                </p>
-                <p style={{fontSize: '12px', color: '#64748b', margin: 0}}>
-                  {user.email}
-                </p>
-              </div>
-            )}
-            <button
-              onClick={handleLogout}
-              style={{
-                ...styles.btn,
-                ...styles.btnSecondary,
-                padding: '8px 12px',
-                fontSize: '12px'
-              }}
-            >
-              <LogOut size={14} />
-              Logout
-            </button>
-          </div>
-          <span style={styles.lawText}>Law No. 142/2023</span>
-          <button style={styles.supportBtn}>
-            Contact Support
-          </button>
-        </div>
-      </div>
-    </header>
-  );
+  switch (activeTab) {
+    case 'dashboard':
+      return <Dashboard setActiveTab={setActiveTab} />;
+    case 'compliance':
+      return (
+        <ComplianceTab 
+          complianceData={complianceData}
+          onComplianceDataChange={setComplianceData}
+        />
+      );
+    case 'qa':
+      return (
+        <QAPage 
+          onUpdateCompliance={handleComplianceUpdate}
+        />
+      );
+    case 'incidents':
+      return <IncidentTab />;
+    case 'resources':
+      return <ResourcesTab />;
+    default:
+      return <Dashboard setActiveTab={setActiveTab} />;
+  }
+};
 
   // Enhanced Navigation with Q&A tab
   const EnhancedNavigation = ({ activeTab, setActiveTab }) => {
@@ -231,12 +209,12 @@ const App = () => {
     return <Login onLogin={handleLogin} />;
   }
 
-  return (
+    return (
     <div style={{
       ...styles.container,
       borderBottom: 'none' // Remove any border that causes black line
     }}>
-      <EnhancedHeader />
+      <Header user={user} onLogout={handleLogout} />
       
       <div style={styles.main}>
         <EnhancedNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -266,7 +244,7 @@ const App = () => {
               CyberCare Platform
             </h4>
             <p style={{fontSize: '14px', color: '#cbd5e1', lineHeight: 1.6}}>
-              Comprehensive RegTech solution helping Moldovan businesses achieve full compliance with Cybersecurity Law No. 142/2023 through automated assessments, employee training, and intelligent monitoring.
+              Comprehensive RegTech solution helping Moldovan businesses achieve full compliance with Cybersecurity Law No. 48/2023 through automated assessments, employee training, and intelligent monitoring.
             </p>
           </div>
           <div>

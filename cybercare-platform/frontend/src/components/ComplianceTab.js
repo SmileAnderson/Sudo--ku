@@ -13,9 +13,8 @@ const COMPLIANCE_CHECKLIST = {
         text: 'Next-generation firewall with IPS/IDS capabilities', 
         required: true,
         resources: [
-          { title: 'Moldova Firewall Requirements Guide', url: '#firewall-guide', type: 'PDF' },
-          { title: 'Recommended Firewall Vendors', url: '#firewall-vendors', type: 'List' },
-          { title: 'Firewall Configuration Template', url: '#firewall-config', type: 'Template' }
+          { title: 'Moldova Firewall Requirements Guide', url: 'https://aboutmoldova.md/en/view_articles_post.php?id=467', type: 'Link' },
+          { title: 'Firewall Configuration Template', url: 'https://documentero.com/templates/it-engineering/document/firewall-configuration/', type: 'Link' }
         ]
       },
       { 
@@ -23,8 +22,7 @@ const COMPLIANCE_CHECKLIST = {
         text: 'Network segmentation with VLAN isolation', 
         required: true,
         resources: [
-          { title: 'Network Segmentation Best Practices', url: '#segmentation-guide', type: 'Guide' },
-          { title: 'VLAN Setup Documentation', url: '#vlan-setup', type: 'Technical' }
+          { title: 'Network Segmentation Guide', url: 'https://www.upguard.com/blog/network-segmentation-best-practices', type: 'Link' },
         ]
       },
       { 
@@ -41,7 +39,6 @@ const COMPLIANCE_CHECKLIST = {
         text: 'Secure VPN with strong encryption for remote access', 
         required: true,
         resources: [
-          { title: 'VPN Security Standards', url: '#vpn-standards', type: 'Standards' },
           { title: 'Remote Access Policy Template', url: '#vpn-policy', type: 'Template' }
         ]
       },
@@ -65,7 +62,6 @@ const COMPLIANCE_CHECKLIST = {
         required: true,
         resources: [
           { title: 'MFA Implementation Guide', url: '#mfa-guide', type: 'Guide' },
-          { title: 'Recommended MFA Solutions', url: '#mfa-solutions', type: 'Products' },
           { title: 'MFA Policy Template', url: '#mfa-policy', type: 'Template' }
         ]
       },
@@ -75,7 +71,6 @@ const COMPLIANCE_CHECKLIST = {
         required: true,
         resources: [
           { title: 'Password Policy Generator', url: '#password-policy', type: 'Tool' },
-          { title: 'Moldova Password Standards', url: '#password-standards', type: 'Standards' }
         ]
       }
     ]
@@ -97,7 +92,6 @@ const COMPLIANCE_CHECKLIST = {
         text: 'TLS 1.3 encryption for data in transit', 
         required: true,
         resources: [
-          { title: 'TLS Configuration Guide', url: '#tls-config', type: 'Technical' },
           { title: 'Certificate Management Best Practices', url: '#cert-management', type: 'Guide' }
         ]
       }
@@ -108,6 +102,8 @@ const COMPLIANCE_CHECKLIST = {
 const ResourceItem = ({ resource }) => (
   <a
     href={resource.url}
+    target="_blank"
+    rel="noopener noreferrer"
     style={{
       display: 'flex',
       alignItems: 'center',

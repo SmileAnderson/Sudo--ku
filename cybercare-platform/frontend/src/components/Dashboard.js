@@ -85,9 +85,8 @@ const Dashboard = ({ setActiveTab }) => {
         </div>
       </div>
 
-     /* Quick Actions */
 <div style={styles.card}>
-  <h3 style={{fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#0f172a'}}>
+  <h3 style={{fontSize: '20px', fontWeight: '600', marginBottom: '16px', color: '#0f172a'}}>
     Quick Actions
   </h3>
   <div style={styles.grid4}>
@@ -118,7 +117,7 @@ const Dashboard = ({ setActiveTab }) => {
       <HelpCircle size={20} />
       <div>
         <div style={{fontWeight: '600'}}>Quick Assessment</div>
-        <div style={{fontSize: '12px', opacity: 0.8}}>Initial risk check</div>
+        <div style={{fontSize: '12px'}}>Initial risk check</div>
       </div>
     </button>
     

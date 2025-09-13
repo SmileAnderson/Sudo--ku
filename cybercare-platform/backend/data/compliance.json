@@ -1,6 +1,19 @@
 {
-  "score": 75,
-  "checks": {},
+  "score": 8,
+  "checks": {
+    "network-security-firewall": true,
+    "network-security-network-segmentation": false,
+    "network-security-access-control-lists": false,
+    "network-security-wireless-security": false,
+    "access-control-mfa": true,
+    "access-control-privileged-access": false,
+    "data-protection-backup-encryption": true,
+    "incident-response-incident-plan": false,
+    "compliance-governance-employee-training": false,
+    "monitoring-threat-detection": true,
+    "compliance-governance-change-management": false
+  },
   "lastScan": null,
-  "history": []
+  "history": [],
+  "lastUpdated": "2025-09-13T19:44:38.983Z"
 }

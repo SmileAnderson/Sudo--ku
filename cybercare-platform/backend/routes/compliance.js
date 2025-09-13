@@ -93,6 +93,27 @@ router.get('/export', async (req, res) => {
   }
 });
 
+// POST /api/compliance/sync-from-assessment
+router.post('/sync-from-assessment', authenticateToken, async (req, res) => {
+  try {
+    const { complianceUpdates } = req.body;
+    const companyId = req.user.companyId;
+    
+    // Update compliance items based on assessment answers
+    for (const update of complianceUpdates) {
+      await updateComplianceItem(companyId, update.category, update.itemId, {
+        completed: update.checked,
+        syncedFromAssessment: update.syncedFromAssessment,
+        syncTimestamp: update.syncTimestamp
+      });
+    }
+    
+    res.json({ success: true, updatedItems: complianceUpdates.length });
+  } catch (error) {
+    res.status(500).json({ error: 'Sync failed' });
+  }
+});
+
 // Generate recommendations based on compliance data
 function generateRecommendations(data) {
   const recommendations = [];

@@ -36,9 +36,12 @@ const ResourcesTab = () => {
               </h4>
             </div>
             <p style={{fontSize: '14px', color: '#64748b', marginBottom: '16px', lineHeight: 1.6}}>
-              Complete text of Law No. 142/2023 and official implementation guidelines from the National Cybersecurity Agency
+              Complete text of Law No. 48/2023 and official implementation guidelines from the National Cybersecurity Agency
             </p>
-            <a href="#" style={{color: '#3b82f6', textDecoration: 'none', fontWeight: '500', fontSize: '14px'}}>
+            <a href="https://www.legis.md/cautare/getResults?doc_id=136732&lang=ro" 
+               style={{color: '#3b82f6', textDecoration: 'none', fontWeight: '500', fontSize: '14px'}}
+               rel="noopener noreferrer"
+               target="_blank">
               View on legis.md →
             </a>
           </div>
