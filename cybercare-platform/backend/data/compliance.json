@@ -1,11 +1,11 @@
 {
-  "score": 8,
+  "score": 4,
   "checks": {
-    "network-security-firewall": true,
+    "network-security-firewall": false,
     "network-security-network-segmentation": false,
     "network-security-access-control-lists": false,
     "network-security-wireless-security": false,
-    "access-control-mfa": true,
+    "access-control-mfa": false,
     "access-control-privileged-access": false,
     "data-protection-backup-encryption": true,
     "incident-response-incident-plan": false,
@@ -15,5 +15,5 @@
   },
   "lastScan": null,
   "history": [],
-  "lastUpdated": "2025-09-13T19:44:38.983Z"
+  "lastUpdated": "2025-09-13T20:08:49.923Z"
 }

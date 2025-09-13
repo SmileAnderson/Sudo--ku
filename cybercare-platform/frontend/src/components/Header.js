@@ -1,10 +1,10 @@
-// src/components/Header.js - Header component
+// src/components/Header.js - Enhanced Header component with authentication
 import React, { useState } from 'react';
-import { Shield, Bell } from 'lucide-react';
+import { Shield, Bell, LogOut } from 'lucide-react';
 import { styles } from '../styles/styles';
 import { useNotifications } from '../hooks/useData';
 
-const Header = () => {
+const Header = ({ user, onLogout }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const { notifications, unreadCount, markAsRead, deleteNotification } = useNotifications();
 
@@ -18,7 +18,17 @@ const Header = () => {
     <header style={styles.header}>
       <div style={styles.headerContent}>
         <div style={styles.logo}>
-          <Shield color="#3b82f6" size={32} />
+          <div style={{
+            width: '32px',
+            height: '32px',
+            backgroundColor: '#3b82f6',
+            borderRadius: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <span style={{color: 'white', fontWeight: 'bold', fontSize: '18px'}}>C</span>
+          </div>
           <div>
             <h1 style={styles.logoText}>CyberCare</h1>
             <p style={styles.logoSubtext}>Moldova Cybersecurity Law Compliance Platform</p>
@@ -138,6 +148,37 @@ const Header = () => {
                   )}
                 </div>
               </div>
+            )}
+          </div>
+
+          {/* User Info and Logout Section */}
+          <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+            {user && (
+              <div style={{textAlign: 'right', marginRight: '12px'}}>
+                <p style={{fontSize: '14px', fontWeight: '600', margin: 0, color: '#0f172a'}}>
+                  {user.companyName}
+                </p>
+                <p style={{fontSize: '12px', color: '#64748b', margin: 0}}>
+                  {user.email}
+                </p>
+              </div>
+            )}
+            {user && onLogout && (
+              <button
+                onClick={onLogout}
+                style={{
+                  ...styles.btn,
+                  ...styles.btnSecondary,
+                  padding: '8px 12px',
+                  fontSize: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <LogOut size={14} />
+                Logout
+              </button>
             )}
           </div>
           

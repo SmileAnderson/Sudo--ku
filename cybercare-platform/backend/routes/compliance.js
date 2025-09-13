@@ -2,6 +2,7 @@
 const express = require('express');
 const { readData, writeData, updateData } = require('../middleware/dataStorage');
 const router = express.Router();
+const { authenticateToken } = require('./auth'); // or wherever your auth middleware is located
 
 // Get compliance data
 router.get('/', async (req, res) => {

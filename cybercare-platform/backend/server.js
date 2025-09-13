@@ -8,7 +8,6 @@ const path = require('path');
 
 // Import routes
 const complianceRoutes = require('./routes/compliance.js');
-const trainingRoutes = require('./routes/training.js');
 const incidentRoutes = require('./routes/incidents.js');
 const auditRoutes = require('./routes/audit.js');
 const notificationRoutes = require('./routes/notifications.js');
@@ -36,7 +35,7 @@ app.use(helmet({
 // Rate limiting with different limits for different endpoints
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: process.env.NODE_ENV === 'development' ? 1000 : 100, // Limit each IP to 100 requests per windowMs
   message: {
     error: 'Too many requests from this IP, please try again later.',
     retryAfter: '15 minutes'
@@ -137,7 +136,6 @@ app.get('/api/health', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/compliance', complianceRoutes);
-app.use('/api/training', trainingRoutes);
 app.use('/api/incidents', incidentRoutes);
 app.use('/api/audit', auditRoutes);
 app.use('/api/notifications', notificationRoutes);
@@ -164,7 +162,6 @@ if (process.env.NODE_ENV === 'development') {
         'POST /api/auth/login',
         'POST /api/auth/verify-mfa',
         'GET /api/compliance',
-        'GET /api/training',
         'GET /api/incidents',
         'GET /api/notifications'
       ]
@@ -208,13 +205,14 @@ app.use('/api', (req, res, next) => {
       error: 'Endpoint not found',
       message: `The requested endpoint ${req.method} ${req.originalUrl} does not exist.`,
       availableEndpoints: [
-        'GET /api/health',
+     'GET /api/health',
         'POST /api/auth/login',
+        'POST /api/auth/register',
         'POST /api/auth/verify-mfa',
+        'POST /api/auth/resend-mfa',
+        'POST /api/auth/logout',
         'GET /api/compliance',
         'PUT /api/compliance/check',
-        'GET /api/training',
-        'POST /api/training/complete',
         'GET /api/incidents',
         'POST /api/incidents',
         'GET /api/audit/status',
