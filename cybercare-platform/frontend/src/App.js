@@ -143,11 +143,7 @@ const App = () => {
         />
       );
     case 'qa':
-      return (
-        <QAPage 
-          onUpdateCompliance={handleComplianceUpdate}
-        />
-      );
+  return <QAPage onUpdateCompliance={handleComplianceUpdate} setActiveTab={setActiveTab} />;
     case 'incidents':
       return <IncidentTab />;
     case 'resources':

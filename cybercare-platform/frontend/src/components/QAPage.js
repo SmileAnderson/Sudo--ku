@@ -5,7 +5,7 @@ import { styles } from '../styles/styles';
 import { useCompliance } from '../hooks/useData';
 import { QA_QUESTIONS } from '../data/constants'; 
 
-const QAPage = () => {
+const QAPage = ({ setActiveTab }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [isComplete, setIsComplete] = useState(false);
@@ -111,7 +111,7 @@ const QAPage = () => {
               Retake Assessment
             </button>
             <button
-              onClick={() => window.location.hash = '#compliance'}
+              onClick={() => setActiveTab('compliance')}
               style={{...styles.btn, ...styles.btnPrimary}}
             >
               View Updated Compliance

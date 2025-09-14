@@ -1,41 +1,193 @@
 // routes/compliance.js - Compliance data management
 const express = require('express');
 const { readData, writeData, updateData } = require('../middleware/dataStorage');
-const { COMPLIANCE_CHECKLIST } = require('../data/constants');
 const router = express.Router();
 const { authenticateToken } = require('./auth'); // or wherever your auth middleware is located
+// src/data/constants.js - Add this to your existing constants
+const COMPLIANCE_CHECKLIST = {
+  'network-security': {
+    title: 'Network Security (Article 11.1)',
+    items: [
+      { 
+        id: 'firewall_implemented', 
+        text: 'Next-generation firewall with IPS/IDS capabilities', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Moldova Firewall Requirements Guide', url: 'https://aboutmoldova.md/en/view_articles_post.php?id=467', type: 'Link' },
+          { title: 'Firewall Configuration Template', url: 'https://documentero.com/templates/it-engineering/document/firewall-configuration/', type: 'Link' }
+        ]
+      },
+      { 
+        id: 'network_monitoring_system', 
+        text: 'Network segmentation with VLAN isolation', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Network Segmentation Guide', url: 'https://www.upguard.com/blog/network-segmentation-best-practices', type: 'Link' }
+        ]
+      },
+      { 
+        id: 'access_control_lists', 
+        text: 'Network access control lists (ACLs) configured', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'ACL Configuration Examples', url: '#acl-examples', type: 'Examples' },
+          { title: 'Access Control Policy Template', url: '#acl-policy', type: 'Template' }
+        ]
+      },
+      { 
+        id: 'vpn_security', 
+        text: 'Secure VPN with strong encryption for remote access', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Remote Access Policy Template', url: '#vpn-policy', type: 'Template' }
+        ]
+      },
+      { 
+        id: 'wifi_security_configured', 
+        text: 'WPA3 encryption on all wireless networks', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Wireless Security Configuration', url: '#wifi-security', type: 'Guide' },
+          { title: 'WPA3 Implementation Checklist', url: '#wpa3-checklist', type: 'Checklist' }
+        ]
+      }
+    ]
+  },
+  'access_management': {
+    title: 'Identity & Access Management (Article 11.2)',
+    items: [
+      { 
+        id: 'mfa_implemented', 
+        text: 'Multi-factor authentication for all privileged accounts', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'MFA Implementation Guide', url: '#mfa-guide', type: 'Guide' },
+          { title: 'MFA Policy Template', url: '#mfa-policy', type: 'Template' }
+        ]
+      },
+      { 
+        id: 'password_policy_documented', 
+        text: 'Strong password policy (min 12 chars, complexity)', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Password Policy Generator', url: '#password-policy', type: 'Tool' }
+        ]
+      }
+    ]
+  },
+  'data_protection': {
+    title: 'Data Protection & Encryption (Article 11.3)',
+    items: [
+      { 
+        id: 'data_encryption_implemented', 
+        text: 'AES-256 encryption for data at rest', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Encryption Implementation Guide', url: '#encryption-guide', type: 'Guide' },
+          { title: 'Data Classification Framework', url: '#data-classification', type: 'Framework' }
+        ]
+      },
+      { 
+        id: 'backup_procedures_established', 
+        text: 'TLS 1.3 encryption for data in transit', 
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Certificate Management Best Practices', url: '#cert-management', type: 'Guide' }
+        ]
+      }
+    ]
+  },
+  'security_training': {
+    title: 'Security Training & Awareness (Article 11.4)',
+    items: [
+      {
+        id: 'phishing_training',
+        text: 'Annual phishing awareness training for all employees',
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Phishing Training Materials', url: '#phishing-training', type: 'Training' }
+        ]
+      },
+      {
+        id: 'security_awareness_program',
+        text: 'Comprehensive security awareness program',
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Security Awareness Framework', url: '#security-awareness', type: 'Framework' }
+        ]
+      }
+    ]
+  },
+  'incident_management': {
+    title: 'Incident Response (Article 12)',
+    items: [
+      {
+        id: 'incident_response_plan_documented',
+        text: 'Documented incident response plan',
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Incident Response Template', url: '#incident-response', type: 'Template' }
+        ]
+      },
+      {
+        id: 'emergency_contacts_defined',
+        text: 'Emergency security contacts designated',
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Emergency Contact List Template', url: '#emergency-contacts', type: 'Template' }
+        ]
+      }
+    ]
+  },
+  'governance': {
+    title: 'Governance & Risk Management (Article 13)',
+    items: [
+      {
+        id: 'security_policy_documented',
+        text: 'Documented cybersecurity policies',
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Security Policy Template', url: '#security-policy', type: 'Template' }
+        ]
+      },
+      {
+        id: 'risk_assessment_conducted',
+        text: 'Regular risk assessments conducted',
+        required: true,
+        completed: false,
+        resources: [
+          { title: 'Risk Assessment Framework', url: '#risk-assessment', type: 'Framework' }
+        ]
+      }
+    ]
+  }
+};
 
 // Get compliance data
 router.get('/', async (req, res) => {
   try {
     const data = await readData('compliance.json');
-    
-    const convertedData = {
-      lastUpdated: data.lastUpdated,
-      overallScore: data.score || 0,
-      categories: {}
-    };
-    
-    Object.entries(COMPLIANCE_CHECKLIST).forEach(([categoryKey, category]) => {
-      convertedData.categories[categoryKey] = {
-        title: category.title,
-        items: category.items.map(item => ({
-          id: item.id,
-          name: item.text || item.name,
-          completed: data.checks[`${categoryKey}-${item.id}`] || false,
-          required: item.required,
-          resources: item.resources
-        }))
-      };
-    });
-    
-    res.json(convertedData);
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch compliance data' });
   }
 });
 
-// Update compliance check
+// Update compliance check  
 router.put('/check', async (req, res) => {
   try {
     const { category, itemId, checked } = req.body;
@@ -65,38 +217,6 @@ router.put('/check', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update compliance check' });
-  }
-});
-
-// Update compliance score based on audit results
-router.put('/score', async (req, res) => {
-  try {
-    const { auditResults } = req.body;
-    
-    if (!auditResults) {
-      return res.status(400).json({ error: 'Audit results required' });
-    }
-
-    let score = 75; // Base score
-    
-    // Deduct points based on findings
-    if (auditResults.vulnerabilities?.critical > 0) score -= 20;
-    if (auditResults.vulnerabilities?.high > 0) score -= 10;
-    if (!auditResults.tlsCheck?.hstsEnabled) score -= 5;
-    if (!auditResults.webHeaders?.csp) score -= 5;
-    if (!auditResults.emailAuth?.dmarc) score -= 5;
-    
-    const finalScore = Math.max(0, score);
-    
-    const data = await updateData('compliance.json', {
-      score: finalScore,
-      lastScan: new Date().toLocaleString(),
-      lastAuditResults: auditResults
-    });
-    
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update compliance score' });
   }
 });
 
