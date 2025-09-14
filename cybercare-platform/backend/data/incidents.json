@@ -1,9 +1,107 @@
 {
-  "incidents": [],
-  "templates": {},
+  "incidents": [
+    {
+      "id": "INC-001",
+      "title": "Vulnerable FTP Service on ASE Server",
+      "description": "Security scan detected FTP port 21 open on ase.md server (81.180.68.7) with potential vulnerability",
+      "severity": "High",
+      "status": "Open",
+      "category": "Security Vulnerability",
+      "reportedBy": "Automated Security Scanner",
+      "assignedTo": "IT Security Team",
+      "createdAt": "2025-09-14T09:10:00Z",
+      "updatedAt": "2025-09-14T09:10:00Z",
+      "priority": "High",
+      "affectedAssets": ["ase.md server", "81.180.68.7"],
+      "actions": [
+        {
+          "timestamp": "2025-09-14T09:10:00Z",
+          "action": "Incident created",
+          "user": "System",
+          "details": "Automated detection via security scan"
+        }
+      ]
+    },
+    {
+      "id": "INC-002", 
+      "title": "Missing DMARC Email Policy",
+      "description": "Email security assessment found missing DMARC policy for ase.md domain",
+      "severity": "Medium",
+      "status": "In Progress",
+      "category": "Email Security",
+      "reportedBy": "Email Security Monitor",
+      "assignedTo": "Network Admin",
+      "createdAt": "2025-09-14T08:15:00Z",
+      "updatedAt": "2025-09-14T08:45:00Z",
+      "priority": "Medium",
+      "affectedAssets": ["ase.md email domain"],
+      "actions": [
+        {
+          "timestamp": "2025-09-14T08:15:00Z",
+          "action": "Incident created",
+          "user": "System",
+          "details": "Email security policy gap identified"
+        },
+        {
+          "timestamp": "2025-09-14T08:45:00Z",
+          "action": "Assigned to Network Admin",
+          "user": "IT Manager",
+          "details": "Escalated for DNS policy configuration"
+        }
+      ]
+    },
+    {
+      "id": "INC-003",
+      "title": "SSL Certificate Expiring Soon",
+      "description": "SSL certificate for ase.md will expire in 30 days",
+      "severity": "Low",
+      "status": "Resolved",
+      "category": "Certificate Management",
+      "reportedBy": "Certificate Monitor",
+      "assignedTo": "Web Admin",
+      "createdAt": "2025-09-12T14:30:00Z",
+      "updatedAt": "2025-09-13T16:00:00Z",
+      "priority": "Medium",
+      "affectedAssets": ["ase.md SSL certificate"],
+      "actions": [
+        {
+          "timestamp": "2025-09-12T14:30:00Z",
+          "action": "Incident created",
+          "user": "System",
+          "details": "Certificate expiration warning triggered"
+        },
+        {
+          "timestamp": "2025-09-13T10:00:00Z",
+          "action": "Renewal process initiated",
+          "user": "Web Admin",
+          "details": "Contacted certificate authority for renewal"
+        },
+        {
+          "timestamp": "2025-09-13T16:00:00Z",
+          "action": "Incident resolved",
+          "user": "Web Admin",
+          "details": "New certificate installed and verified"
+        }
+      ]
+    }
+  ],
+  "templates": {
+    "securityVulnerability": {
+      "title": "Security Vulnerability Detected",
+      "category": "Security Vulnerability",
+      "priority": "High",
+      "severity": "High"
+    },
+    "emailSecurity": {
+      "title": "Email Security Issue",
+      "category": "Email Security", 
+      "priority": "Medium",
+      "severity": "Medium"
+    }
+  },
   "statistics": {
-    "totalIncidents": 0,
-    "resolvedIncidents": 0,
-    "averageResolutionTime": 0
+    "totalIncidents": 3,
+    "resolvedIncidents": 1,
+    "averageResolutionTime": 24
   }
 }

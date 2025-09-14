@@ -18,6 +18,21 @@ const Dashboard = ({ setActiveTab }) => {
   const { complianceData } = useCompliance();
   const { auditResults, riskAssessment, isScanning, startAudit } = useAudit();
   const { notifications } = useNotifications();
+  const [incidentsData, setIncidentsData] = useState(null);
+
+  useEffect(() => {
+    const fetchIncidents = async () => {
+      try {
+        const data = await ApiService.getIncidents();
+        setIncidentsData(data);
+      } catch (error) {
+        console.error('Failed to fetch incidents:', error);
+        setIncidentsData({ incidents: [] }); // Default to empty array on error
+      }
+    };
+    
+    fetchIncidents();
+  }, []);
 
   const getComplianceStatus = (score) => {
     if (score >= 80) return { 
@@ -41,79 +56,59 @@ const Dashboard = ({ setActiveTab }) => {
   };
 
   const status = getComplianceStatus(complianceData.score);
-  const [incidentsData, setIncidentsData] = useState(null);
 
-useEffect(() => {
-  const fetchIncidents = async () => {
-    try {
-      const data = await ApiService.getIncidents();
-      setIncidentsData(data);
-    } catch (error) {
-      console.error('Failed to fetch incidents:', error);
-      setIncidentsData({ incidents: [] }); // Default to empty array on error
-    }
-  };
-  
-  fetchIncidents();
-}, []);
   return (
     <div>
-  {/* Key Metrics */}
-  <div style={styles.grid3}>
-    <div style={styles.card}>
-      <div style={styles.cardHeader}>
-        <div>
-          <p style={styles.metricLabel}>Compliance Score</p>
-          <p style={{...styles.metric, color: status.color}}>{complianceData.score}%</p>
-          <span style={{...styles.badge, ...status.badgeStyle}}>
-            {status.label}
-          </span>
+      {/* Key Metrics */}
+      <div style={styles.grid3}>
+        <div style={styles.card}>
+          <div style={styles.cardHeader}>
+            <div>
+              <p style={styles.metricLabel}>Compliance Score</p>
+              <p style={{...styles.metric, color: status.color}}>{complianceData.score}%</p>
+              <span style={{...styles.badge, ...status.badgeStyle}}>
+                {status.label}
+              </span>
+            </div>
+            <BarChart3 color={status.color} size={28} />
+          </div>
         </div>
-        <BarChart3 color={status.color} size={28} />
-      </div>
-    </div>
 
-    <div style={styles.card}>
-      <div style={styles.cardHeader}>
-        <div>
-          <p style={styles.metricLabel}>Risk Score</p>
-          <p style={{...styles.metric, color: '#ea580c'}}>
-            {auditResults?.riskScore || '—'}/10
-          </p>
-          <span style={{
-            ...styles.badge,
-            backgroundColor: '#fff7ed',
-            color: '#ea580c'
-          }}>
-            High Risk Level
-          </span>
+        <div style={styles.card}>
+          <div style={styles.cardHeader}>
+            <div>
+              <p style={styles.metricLabel}>Risk Score</p>
+              <p style={{...styles.metric, color: '#ea580c'}}>
+                {auditResults?.results?.riskScore ? auditResults.results.riskScore.toFixed(1) : '—'}/10.0
+              </p>
+              <p style={{...styles.metricLabel, marginTop: '8px'}}>ase.md (81.180.68.7) assessment</p>
+            </div>
+            <AlertTriangle color="#ea580c" size={28} />
+          </div>
         </div>
-        <Shield color="#ea580c" size={28} />
-      </div>
-    </div>
 
-    <div style={styles.card}>
-      <div style={styles.cardHeader}>
-        <div>
-          <p style={styles.metricLabel}>Recent Incidents</p>
-          <p style={{...styles.metric, color: '#374151'}}>
-            {incidentsData ? (incidentsData.incidents?.length || 0) : 'Loading...'}
-          </p>
-          <span style={{
-            ...styles.badge,
-            backgroundColor: '#f0fdf4',
-            color: '#16a34a'
-          }}>
-            {incidentsData && incidentsData.incidents?.length > 0 
-              ? 'Click Incidents tab to review' 
-              : 'No incidents reported'
-            }
-          </span>
+        <div style={styles.card}>
+          <div style={styles.cardHeader}>
+            <div>
+              <p style={styles.metricLabel}>Recent Incidents</p>
+              <p style={{...styles.metric, color: '#374151'}}>
+                {incidentsData ? (incidentsData.incidents?.length || 0) : 'Loading...'}
+              </p>
+              <span style={{
+                ...styles.badge,
+                backgroundColor: '#f0fdf4',
+                color: '#16a34a'
+              }}>
+                {incidentsData && incidentsData.incidents?.length > 0 
+                  ? 'Click Incidents tab to review' 
+                  : 'No incidents reported'
+                }
+              </span>
+            </div>
+            <AlertTriangle color="#16a34a" size={28} />
+          </div>
         </div>
-        <AlertTriangle color="#16a34a" size={28} />
       </div>
-    </div>
-  </div>
 
 <div style={styles.card}>
   <h3 style={{fontSize: '20px', fontWeight: '600', marginBottom: '16px', color: '#0f172a'}}>
@@ -134,15 +129,15 @@ useEffect(() => {
       <RefreshCw size={20} className={isScanning ? 'spinning' : ''} />
       <div>
         <div style={{fontWeight: '600'}}>
-          {isScanning ? 'Scanning...' : 'Run Security Audit'}
+          {isScanning ? 'Scanning ase.md...' : 'Run Security Audit'}
         </div>
-        <div style={{fontSize: '12px', opacity: 0.8}}>Full system scan</div>
+        <div style={{fontSize: '12px', opacity: 0.8}}>Scan ase.md (81.180.68.7)</div>
       </div>
     </button>
     
     <button
       onClick={() => setActiveTab('qa')}
-      style={{...styles.btn, ...styles.btnSuccess, justifyContent: 'center', padding: '16px'}}
+      style={{...styles.btn, ...styles.btnAccent, justifyContent: 'center', padding: '16px'}}
     >
       <HelpCircle size={20} />
       <div>
@@ -153,7 +148,7 @@ useEffect(() => {
     
     <button 
       onClick={() => setActiveTab('compliance')}
-      style={{...styles.btn, ...styles.btnResource, justifyContent: 'center', padding: '16px'}}
+      style={{...styles.btn, ...styles.btnSecondary, justifyContent: 'center', padding: '16px'}}
     >
       <FileCheck size={20} />
       <div>
@@ -194,7 +189,7 @@ useEffect(() => {
           {auditResults.loading ? (
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px'}}>
               <RefreshCw className="spinning" size={24} />
-              <span style={{marginLeft: '12px'}}>Scanning infrastructure...</span>
+              <span style={{marginLeft: '12px'}}>Scanning ase.md (81.180.68.7)...</span>
             </div>
           ) : (
             <>

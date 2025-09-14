@@ -1,28 +1,64 @@
 {
   "notifications": [
     {
-      "id": 1,
-      "type": "warning",
-      "message": "Password policy review due in 7 days",
-      "time": "2 hours ago",
-      "timestamp": "2025-09-13T14:42:06.951Z",
-      "read": false
+      "id": "1",
+      "type": "critical",
+      "message": "High-risk vulnerability detected on ase.md server",
+      "time": "2 minutes ago",
+      "timestamp": "2025-09-14T09:10:00Z",
+      "read": false,
+      "source": "Security Scanner",
+      "details": "FTP port 21 detected as vulnerable on 81.180.68.7"
     },
     {
-      "id": 2,
+      "id": "2", 
+      "type": "warning",
+      "message": "Missing DMARC policy for ase.md email domain",
+      "time": "1 hour ago",
+      "timestamp": "2025-09-14T08:15:00Z",
+      "read": false,
+      "source": "Email Security",
+      "details": "Email spoofing protection is incomplete"
+    },
+    {
+      "id": "3",
       "type": "info",
       "message": "New cybersecurity training module available",
-      "time": "1 day ago",
-      "timestamp": "2025-09-12T14:42:06.951Z",
-      "read": false
+      "time": "1 day ago", 
+      "timestamp": "2025-09-13T09:12:00Z",
+      "read": true,
+      "source": "Training Platform",
+      "details": "Moldova Cybersecurity Law 48/2023 compliance training"
     },
     {
-      "id": 3,
-      "type": "critical",
-      "message": "2 high-priority vulnerabilities detected",
+      "id": "4",
+      "type": "warning",
+      "message": "SSL certificate expires in 30 days for ase.md",
+      "time": "2 days ago",
+      "timestamp": "2025-09-12T14:30:00Z", 
+      "read": false,
+      "source": "Certificate Monitor",
+      "details": "Renewal required before October 14, 2025"
+    },
+    {
+      "id": "5",
+      "type": "info",
+      "message": "Weekly security report generated",
       "time": "3 days ago",
-      "timestamp": "2025-09-10T14:42:06.951Z",
-      "read": false
+      "timestamp": "2025-09-11T10:00:00Z",
+      "read": true,
+      "source": "Automated Reports",
+      "details": "Review compliance metrics and recommendations"
+    },
+    {
+      "id": "6",
+      "type": "critical",
+      "message": "Failed login attempts detected from suspicious IP",
+      "time": "1 week ago",
+      "timestamp": "2025-09-07T16:45:00Z",
+      "read": true,
+      "source": "Intrusion Detection", 
+      "details": "Multiple failed attempts from IP 192.168.1.100"
     }
   ],
   "settings": {

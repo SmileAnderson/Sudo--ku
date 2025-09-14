@@ -126,13 +126,14 @@ export const useAudit = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState(null);
 
-  const startAudit = async (target = 'example.com') => {
+  const startAudit = async (target = '81.180.68.7') => {
     try {
       setIsScanning(true);
       setAuditResults({ loading: true });
       setError(null);
       
-      await ApiService.startAudit(target);
+      // Always scan ase.md IP address as requested
+      await ApiService.startAudit('81.180.68.7');
       
       // Poll for results
       const pollResults = async () => {

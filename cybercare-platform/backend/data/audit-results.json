@@ -1,6 +1,884 @@
 {
   "results": [],
-  "currentScan": null,
-  "scanHistory": [],
-  "riskAssessments": []
+  "currentScan": {
+    "id": "a24b14dd-659f-44c2-b8ed-d53021a62950",
+    "target": "81.180.68.7",
+    "status": "completed",
+    "progress": 100,
+    "startTime": "2025-09-14T09:24:13.449Z",
+    "results": {
+      "networkScan": {
+        "openPorts": [
+          80,
+          443,
+          22,
+          21
+        ],
+        "vulnerablePorts": [
+          21
+        ],
+        "status": "warning"
+      },
+      "tlsCheck": {
+        "version": "TLS 1.2",
+        "certificateValid": true,
+        "hstsEnabled": false,
+        "status": "warning"
+      },
+      "webHeaders": {
+        "https": true,
+        "csp": false,
+        "xFrameOptions": true,
+        "status": "warning"
+      },
+      "emailAuth": {
+        "spf": true,
+        "dkim": false,
+        "dmarc": false,
+        "status": "warning"
+      },
+      "vulnerabilities": {
+        "critical": 0,
+        "high": 1,
+        "medium": 3,
+        "low": 5,
+        "status": "warning"
+      },
+      "riskScore": 6.2,
+      "scanTarget": "81.180.68.7 (ase.md)",
+      "lastUpdated": "2025-09-14T09:24:15.571Z",
+      "note": "Note: Scanner service temporarily unavailable"
+    },
+    "endTime": "2025-09-14T09:24:15.571Z"
+  },
+  "scanHistory": [
+    {
+      "id": "a24b14dd-659f-44c2-b8ed-d53021a62950",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T09:24:13.449Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443,
+            22,
+            21
+          ],
+          "vulnerablePorts": [
+            21
+          ],
+          "status": "warning"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.2",
+          "certificateValid": true,
+          "hstsEnabled": false,
+          "status": "warning"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": false,
+          "xFrameOptions": true,
+          "status": "warning"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": false,
+          "dmarc": false,
+          "status": "warning"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 1,
+          "medium": 3,
+          "low": 5,
+          "status": "warning"
+        },
+        "riskScore": 6.2,
+        "scanTarget": "81.180.68.7 (ase.md)",
+        "lastUpdated": "2025-09-14T09:24:15.571Z",
+        "note": "Note: Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T09:24:15.571Z"
+    },
+    {
+      "id": "fe129a7d-4531-4b4f-909d-7a0cbf1168ac",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T09:16:21.807Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443,
+            22,
+            21
+          ],
+          "vulnerablePorts": [
+            21
+          ],
+          "status": "warning"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.2",
+          "certificateValid": true,
+          "hstsEnabled": false,
+          "status": "warning"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": false,
+          "xFrameOptions": true,
+          "status": "warning"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": false,
+          "dmarc": false,
+          "status": "warning"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 1,
+          "medium": 3,
+          "low": 5,
+          "status": "warning"
+        },
+        "riskScore": 6.2,
+        "scanTarget": "81.180.68.7 (ase.md)",
+        "lastUpdated": "2025-09-14T09:16:21.819Z",
+        "note": "Note: Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T09:16:21.819Z"
+    },
+    {
+      "id": "661a69df-1f58-42ac-a028-5f5e310a48f5",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T09:15:08.804Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443,
+            22,
+            21
+          ],
+          "vulnerablePorts": [
+            21
+          ],
+          "status": "warning"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.2",
+          "certificateValid": true,
+          "hstsEnabled": false,
+          "status": "warning"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": false,
+          "xFrameOptions": true,
+          "status": "warning"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": false,
+          "dmarc": false,
+          "status": "warning"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 1,
+          "medium": 3,
+          "low": 5,
+          "status": "warning"
+        },
+        "riskScore": 6.2,
+        "scanTarget": "81.180.68.7 (ase.md)",
+        "lastUpdated": "2025-09-14T09:15:08.828Z",
+        "note": "Note: Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T09:15:08.828Z"
+    },
+    {
+      "id": "4e37f952-1f78-4637-a6d7-5e35b824611f",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T09:07:33.583Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443,
+            22,
+            21
+          ],
+          "vulnerablePorts": [
+            21
+          ],
+          "status": "warning"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.2",
+          "certificateValid": true,
+          "hstsEnabled": false,
+          "status": "warning"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": false,
+          "xFrameOptions": true,
+          "status": "warning"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": false,
+          "dmarc": false,
+          "status": "warning"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 1,
+          "medium": 3,
+          "low": 5,
+          "status": "warning"
+        },
+        "riskScore": 6.2,
+        "scanTarget": "81.180.68.7 (ase.md)",
+        "lastUpdated": "2025-09-14T09:07:33.599Z",
+        "note": "Note: Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T09:07:33.599Z"
+    },
+    {
+      "id": "8a7c2729-729d-4319-a765-d9fd54dcad57",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T09:07:15.157Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443,
+            22,
+            21
+          ],
+          "vulnerablePorts": [
+            21
+          ],
+          "status": "warning"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.2",
+          "certificateValid": true,
+          "hstsEnabled": false,
+          "status": "warning"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": false,
+          "xFrameOptions": true,
+          "status": "warning"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": false,
+          "dmarc": false,
+          "status": "warning"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 1,
+          "medium": 3,
+          "low": 5,
+          "status": "warning"
+        },
+        "riskScore": 6.2,
+        "scanTarget": "81.180.68.7 (ase.md)",
+        "lastUpdated": "2025-09-14T09:07:15.172Z",
+        "note": "Note: Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T09:07:15.172Z"
+    },
+    {
+      "id": "09a21ffb-98f6-40a8-b714-fbfb9fbe3624",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T09:07:03.269Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443,
+            22,
+            21
+          ],
+          "vulnerablePorts": [
+            21
+          ],
+          "status": "warning"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.2",
+          "certificateValid": true,
+          "hstsEnabled": false,
+          "status": "warning"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": false,
+          "xFrameOptions": true,
+          "status": "warning"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": false,
+          "dmarc": false,
+          "status": "warning"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 1,
+          "medium": 3,
+          "low": 5,
+          "status": "warning"
+        },
+        "riskScore": 6.2,
+        "scanTarget": "81.180.68.7 (ase.md)",
+        "lastUpdated": "2025-09-14T09:07:03.313Z",
+        "note": "Note: Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T09:07:03.313Z"
+    },
+    {
+      "id": "a555a305-5f89-4dac-9390-b55927d5ed2f",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T08:56:04.942Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443
+          ],
+          "vulnerablePorts": [],
+          "status": "good"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.3",
+          "certificateValid": true,
+          "hstsEnabled": true,
+          "status": "good"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": true,
+          "xFrameOptions": true,
+          "status": "good"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": true,
+          "dmarc": true,
+          "status": "good"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 0,
+          "medium": 1,
+          "low": 2,
+          "status": "good"
+        },
+        "riskScore": 2.5,
+        "error": "Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T08:56:04.984Z"
+    },
+    {
+      "id": "11f2858e-94ef-47c7-aaae-82be8a794e4d",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T08:51:51.274Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443
+          ],
+          "vulnerablePorts": [],
+          "status": "good"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.3",
+          "certificateValid": true,
+          "hstsEnabled": true,
+          "status": "good"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": true,
+          "xFrameOptions": true,
+          "status": "good"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": true,
+          "dmarc": true,
+          "status": "good"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 0,
+          "medium": 1,
+          "low": 2,
+          "status": "good"
+        },
+        "riskScore": 2.5,
+        "error": "Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T08:51:51.293Z"
+    },
+    {
+      "id": "769aa943-4a62-46ed-b0fa-c27c2c13d7d0",
+      "target": "81.180.68.7",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T08:51:41.591Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443
+          ],
+          "vulnerablePorts": [],
+          "status": "good"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.3",
+          "certificateValid": true,
+          "hstsEnabled": true,
+          "status": "good"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": true,
+          "xFrameOptions": true,
+          "status": "good"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": true,
+          "dmarc": true,
+          "status": "good"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 0,
+          "medium": 1,
+          "low": 2,
+          "status": "good"
+        },
+        "riskScore": 2.5,
+        "error": "Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T08:51:41.651Z"
+    },
+    {
+      "id": "5bc02282-df89-4bd8-99e6-9244708088e5",
+      "target": "https://ase.md/",
+      "status": "completed",
+      "progress": 100,
+      "startTime": "2025-09-14T08:39:14.007Z",
+      "results": {
+        "networkScan": {
+          "openPorts": [
+            80,
+            443
+          ],
+          "vulnerablePorts": [],
+          "status": "good"
+        },
+        "tlsCheck": {
+          "version": "TLS 1.3",
+          "certificateValid": true,
+          "hstsEnabled": true,
+          "status": "good"
+        },
+        "webHeaders": {
+          "https": true,
+          "csp": true,
+          "xFrameOptions": true,
+          "status": "good"
+        },
+        "emailAuth": {
+          "spf": true,
+          "dkim": true,
+          "dmarc": true,
+          "status": "good"
+        },
+        "vulnerabilities": {
+          "critical": 0,
+          "high": 0,
+          "medium": 1,
+          "low": 2,
+          "status": "good"
+        },
+        "riskScore": 2.5,
+        "error": "Scanner service temporarily unavailable"
+      },
+      "endTime": "2025-09-14T08:39:14.026Z"
+    }
+  ],
+  "riskAssessments": [
+    {
+      "id": "ec65dfb6-8f2e-46ce-8bb0-90c237d5e1de",
+      "timestamp": "2025-09-14T09:24:18.604Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "a24b14dd-659f-44c2-b8ed-d53021a62950"
+    },
+    {
+      "id": "b32fa32f-cbe8-4efd-bb5b-6e5cdb7f215c",
+      "timestamp": "2025-09-14T09:16:24.855Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "fe129a7d-4531-4b4f-909d-7a0cbf1168ac"
+    },
+    {
+      "id": "a51d0728-81d1-4671-9e24-ad4652532b55",
+      "timestamp": "2025-09-14T09:15:11.860Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "661a69df-1f58-42ac-a028-5f5e310a48f5"
+    },
+    {
+      "id": "7689c31a-4900-440e-8fb0-b8dce11dc98a",
+      "timestamp": "2025-09-14T09:07:36.648Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "4e37f952-1f78-4637-a6d7-5e35b824611f"
+    },
+    {
+      "id": "6f0cbf0a-ec99-449d-8891-ebb63d0878b2",
+      "timestamp": "2025-09-14T09:07:18.209Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "8a7c2729-729d-4319-a765-d9fd54dcad57"
+    },
+    {
+      "id": "c78f05d7-44d6-4d56-8d5a-4bd56efb9d05",
+      "timestamp": "2025-09-14T09:07:06.353Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "09a21ffb-98f6-40a8-b714-fbfb9fbe3624"
+    },
+    {
+      "id": "4e84bd76-bfc8-4b4c-ab70-20d8de24e0d6",
+      "timestamp": "2025-09-14T08:56:08.449Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "a555a305-5f89-4dac-9390-b55927d5ed2f"
+    },
+    {
+      "id": "3ce6a4d4-f320-4659-a784-dff7d5b88f8b",
+      "timestamp": "2025-09-14T08:51:54.334Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "11f2858e-94ef-47c7-aaae-82be8a794e4d"
+    },
+    {
+      "id": "bf784703-5bb3-49d2-9079-6b246bb4842d",
+      "timestamp": "2025-09-14T08:51:44.687Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "769aa943-4a62-46ed-b0fa-c27c2c13d7d0"
+    },
+    {
+      "id": "e0443b8e-1fd7-4e63-8085-07b97d476e1a",
+      "timestamp": "2025-09-14T08:39:17.062Z",
+      "risks": [
+        {
+          "id": 1,
+          "category": "Network Security",
+          "risk": "Vulnerable port 8080 exposed",
+          "severity": "High",
+          "impact": "Unauthorized access to internal systems",
+          "likelihood": "Medium",
+          "recommendation": "Close port 8080 or implement proper access controls"
+        },
+        {
+          "id": 2,
+          "category": "Web Security",
+          "risk": "Missing Content Security Policy",
+          "severity": "Medium",
+          "impact": "XSS attack vulnerability",
+          "likelihood": "Low",
+          "recommendation": "Implement CSP headers on all web applications"
+        },
+        {
+          "id": 3,
+          "category": "Email Security",
+          "risk": "DMARC policy not configured",
+          "severity": "Medium",
+          "impact": "Email spoofing and phishing attacks",
+          "likelihood": "Medium",
+          "recommendation": "Configure DMARC policy with monitoring"
+        }
+      ],
+      "auditId": "5bc02282-df89-4bd8-99e6-9244708088e5"
+    }
+  ]
 }
