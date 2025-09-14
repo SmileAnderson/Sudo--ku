@@ -126,13 +126,13 @@ export const styles = {
     color: '#64748b'
   },
   card: {
-    backgroundColor: '#ffffff',
-    borderRadius: '12px',
-    border: '1px solid #e2e8f0',
-    padding: '24px',
-    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-    marginBottom: '24px'
-  },
+  backgroundColor: '#ffffff',
+  borderRadius: '12px',
+  border: '1px solid #e5e7eb',
+  padding: '24px',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+  marginBottom: '24px'
+},
   grid3: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -150,30 +150,31 @@ export const styles = {
     gap: '24px'
   },
   cardHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start'
-  },
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  marginBottom: '16px'
+},
   metric: {
-    fontSize: '36px',
-    fontWeight: '700',
-    margin: '8px 0 4px 0',
-    lineHeight: 1
-  },
-  metricLabel: {
-    fontSize: '14px',
-    color: '#64748b',
-    margin: 0,
-    fontWeight: '500'
-  },
+  fontSize: '48px',
+  fontWeight: '700',
+  lineHeight: '1',
+  margin: '8px 0 12px 0'
+},
+ metricLabel: {
+  color: '#6b7280',
+  fontSize: '16px',
+  fontWeight: '500',
+  margin: '0 0 8px 0'
+},
   badge: {
-    display: 'inline-block',
-    padding: '6px 12px',
-    borderRadius: '20px',
-    fontSize: '12px',
-    fontWeight: '600',
-    marginTop: '8px'
-  },
+  padding: '6px 12px',
+  borderRadius: '6px',
+  fontSize: '12px',
+  fontWeight: '600',
+  display: 'inline-block',
+  marginTop: '8px'
+},
   badgeGood: {
     backgroundColor: '#dcfce7',
     color: '#166534'
@@ -213,6 +214,10 @@ export const styles = {
   },
   btnWarning: {
     backgroundColor: '#f59e0b',
+    color: 'white'
+  },
+  btnResource: {
+    backgroundColor: '#7a5dc7',
     color: 'white'
   },
   input: {

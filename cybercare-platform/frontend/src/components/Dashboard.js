@@ -1,10 +1,9 @@
 // src/components/Dashboard.js - Dashboard component
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Shield, 
   AlertTriangle, 
   BarChart3, 
-  GraduationCap, 
   RefreshCw, 
   AlertCircle, 
   FileCheck, 
@@ -13,6 +12,7 @@ import {
 } from 'lucide-react';
 import { styles } from '../styles/styles';
 import { useCompliance, useAudit, useNotifications } from '../hooks/useData';
+import ApiService from '../services/api';
 
 const Dashboard = ({ setActiveTab }) => {
   const { complianceData } = useCompliance();
@@ -41,49 +41,79 @@ const Dashboard = ({ setActiveTab }) => {
   };
 
   const status = getComplianceStatus(complianceData.score);
+  const [incidentsData, setIncidentsData] = useState(null);
 
+useEffect(() => {
+  const fetchIncidents = async () => {
+    try {
+      const data = await ApiService.getIncidents();
+      setIncidentsData(data);
+    } catch (error) {
+      console.error('Failed to fetch incidents:', error);
+      setIncidentsData({ incidents: [] }); // Default to empty array on error
+    }
+  };
+  
+  fetchIncidents();
+}, []);
   return (
     <div>
-      {/* Key Metrics */}
-      <div style={styles.grid3}>
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <div>
-              <p style={styles.metricLabel}>Compliance Score</p>
-              <p style={{...styles.metric, color: status.color}}>{complianceData.score}%</p>
-              <span style={{...styles.badge, ...status.badgeStyle}}>
-                {status.label}
-              </span>
-            </div>
-            <BarChart3 color={status.color} size={28} />
-          </div>
+  {/* Key Metrics */}
+  <div style={styles.grid3}>
+    <div style={styles.card}>
+      <div style={styles.cardHeader}>
+        <div>
+          <p style={styles.metricLabel}>Compliance Score</p>
+          <p style={{...styles.metric, color: status.color}}>{complianceData.score}%</p>
+          <span style={{...styles.badge, ...status.badgeStyle}}>
+            {status.label}
+          </span>
         </div>
-
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <div>
-              <p style={styles.metricLabel}>Risk Score</p>
-              <p style={{...styles.metric, color: '#ea580c'}}>
-                {auditResults?.riskScore || '—'}/10
-              </p>
-              <p style={{...styles.metricLabel, marginTop: '8px'}}>Current risk level</p>
-            </div>
-            <AlertTriangle color="#ea580c" size={28} />
-          </div>
-        </div>
-
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <div>
-              <p style={styles.metricLabel}>Training Progress</p>
-              <p style={{...styles.metric, color: '#8b5cf6'}}>
-              </p>
-              <p style={{...styles.metricLabel, marginTop: '8px'}}>Modules completed</p>
-            </div>
-            <GraduationCap color="#8b5cf6" size={28} />
-          </div>
-        </div>
+        <BarChart3 color={status.color} size={28} />
       </div>
+    </div>
+
+    <div style={styles.card}>
+      <div style={styles.cardHeader}>
+        <div>
+          <p style={styles.metricLabel}>Risk Score</p>
+          <p style={{...styles.metric, color: '#ea580c'}}>
+            {auditResults?.riskScore || '—'}/10
+          </p>
+          <span style={{
+            ...styles.badge,
+            backgroundColor: '#fff7ed',
+            color: '#ea580c'
+          }}>
+            High Risk Level
+          </span>
+        </div>
+        <Shield color="#ea580c" size={28} />
+      </div>
+    </div>
+
+    <div style={styles.card}>
+      <div style={styles.cardHeader}>
+        <div>
+          <p style={styles.metricLabel}>Recent Incidents</p>
+          <p style={{...styles.metric, color: '#374151'}}>
+            {incidentsData ? (incidentsData.incidents?.length || 0) : 'Loading...'}
+          </p>
+          <span style={{
+            ...styles.badge,
+            backgroundColor: '#f0fdf4',
+            color: '#16a34a'
+          }}>
+            {incidentsData && incidentsData.incidents?.length > 0 
+              ? 'Click Incidents tab to review' 
+              : 'No incidents reported'
+            }
+          </span>
+        </div>
+        <AlertTriangle color="#16a34a" size={28} />
+      </div>
+    </div>
+  </div>
 
 <div style={styles.card}>
   <h3 style={{fontSize: '20px', fontWeight: '600', marginBottom: '16px', color: '#0f172a'}}>
@@ -112,7 +142,7 @@ const Dashboard = ({ setActiveTab }) => {
     
     <button
       onClick={() => setActiveTab('qa')}
-      style={{...styles.btn, ...styles.btnAccent, justifyContent: 'center', padding: '16px'}}
+      style={{...styles.btn, ...styles.btnSuccess, justifyContent: 'center', padding: '16px'}}
     >
       <HelpCircle size={20} />
       <div>
@@ -123,7 +153,7 @@ const Dashboard = ({ setActiveTab }) => {
     
     <button 
       onClick={() => setActiveTab('compliance')}
-      style={{...styles.btn, ...styles.btnSecondary, justifyContent: 'center', padding: '16px'}}
+      style={{...styles.btn, ...styles.btnResource, justifyContent: 'center', padding: '16px'}}
     >
       <FileCheck size={20} />
       <div>
