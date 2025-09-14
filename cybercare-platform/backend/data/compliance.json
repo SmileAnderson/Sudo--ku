@@ -1,23 +1,23 @@
 {
   "score": 47,
   "checks": {
-    "network-security-firewall_implemented": false,
-    "network-security-network_monitoring_system": false,
+    "network-security-firewall_implemented": true,
+    "network-security-network_monitoring_system": true,
     "network-security-access_control_lists": true,
-    "network-security-vpn_security": true,
+    "network-security-vpn_security": false,
     "network-security-wifi_security_configured": false,
-    "access_management-mfa_implemented": true,
-    "access_management-password_policy_documented": false,
-    "data_protection-data_encryption_implemented": false,
+    "access_management-mfa_implemented": false,
+    "access_management-password_policy_documented": true,
+    "data_protection-data_encryption_implemented": true,
     "data_protection-backup_procedures_established": false,
     "security_training-phishing_training": false,
     "security_training-security_awareness_program": false,
-    "incident_management-incident_response_plan_documented": false,
+    "incident_management-incident_response_plan_documented": true,
     "incident_management-emergency_contacts_defined": false,
     "governance-security_policy_documented": false,
     "governance-risk_assessment_conducted": true
   },
   "lastScan": null,
   "history": [],
-  "lastUpdated": "2025-09-14T09:14:24.634Z"
+  "lastUpdated": "2025-09-14T09:59:20.054Z"
 }
