@@ -86,34 +86,7 @@ class ApiService {
     return this.request('/api/compliance/export');
   }
 
-  // Training API (if you still need these for the integrated training)
-  async getTrainingData() {
-    return this.request('/api/training');
-  }
-
-  async getTrainingModules() {
-    return this.request('/api/training/modules');
-  }
-
-  async getTrainingQuestions(moduleId) {
-    return this.request(`/api/training/questions/${moduleId}`);
-  }
-
-  async completeTrainingModule(moduleId, score, answers) {
-    return this.request('/api/training/complete', {
-      method: 'POST',
-      body: { moduleId, score, answers }
-    });
-  }
-
-  async updateLeaderboard(userScore) {
-    return this.request('/api/training/leaderboard', {
-      method: 'PUT',
-      body: { userScore }
-    });
-  }
-
-  // Incidents API (MISSING METHODS - THIS WAS YOUR ISSUE!)
+  // Incidents API
   async getIncidents() {
     return this.request('/api/incidents');
   }

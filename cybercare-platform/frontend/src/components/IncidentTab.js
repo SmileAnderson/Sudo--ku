@@ -1,6 +1,6 @@
 // src/components/IncidentTab.js - Fixed incident management component
 import React, { useState } from 'react';
-import { Send, FileText } from 'lucide-react';
+import { Send, FileText, Download } from 'lucide-react';
 import { styles } from '../styles/styles';
 import { useIncidents } from '../hooks/useData';
 
@@ -52,6 +52,22 @@ const IncidentForm = ({ onSubmit, isSubmitting }) => {
         Incident Reporting (Article 12)
       </h3>
       
+      <div style={{
+  backgroundColor: '#f8fafc',
+  border: '1px solid #e2e8f0',
+  borderRadius: '8px',
+  padding: '20px',
+  marginBottom: '24px',
+  lineHeight: 1.6
+}}>
+  <p style={{
+    fontSize: '14px',
+    color: '#475569',
+    margin: 0
+  }}>
+    If something goes wrong with your business online — like your <strong>website gets hacked</strong> or <strong>customer information is stolen</strong> — you need to tell the authorities right away. This is called <strong>incident reporting</strong>. It helps experts act fast to fix the problem and stop more damage. Reporting <strong>serious problems quickly</strong> protects your business, your customers, and the whole community. It's a way of asking for help when you need it the most, and by doing it, you also <strong>follow the law</strong>.
+  </p>
+</div>
       <form onSubmit={handleSubmit}>
         <div style={{...styles.grid2, marginBottom: '20px'}}>
           <div>
@@ -142,6 +158,11 @@ const IncidentForm = ({ onSubmit, isSubmitting }) => {
             onChange={(e) => handleInputChange('actions', e.target.value)}
           />
         </div>
+        <div style={{display: 'flex', gap: '16px', flexWrap: 'wrap'}}>
+        <button style={{...styles.btn, ...styles.btnSuccess}}>
+          <Download size={16} />
+          Export Incident Report (PDF)
+        </button>
 
         <button 
           type="submit"
@@ -156,6 +177,7 @@ const IncidentForm = ({ onSubmit, isSubmitting }) => {
           <Send size={16} />
           {isSubmitting ? 'Submitting...' : 'Submit Incident Report to National Agency'}
         </button>
+        </div>
       </form>
     </div>
   );

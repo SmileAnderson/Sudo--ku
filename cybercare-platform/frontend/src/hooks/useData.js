@@ -1,6 +1,6 @@
 // src/hooks/useData.js - Custom hooks for data management
 import { useState, useEffect } from 'react';
-import apiService from '../services/api';
+import ApiService from '../services/api';
 
 // Hook for compliance data
 export const useCompliance = () => {
@@ -16,7 +16,7 @@ export const useCompliance = () => {
   const fetchComplianceData = async () => {
     try {
       setLoading(true);
-      const data = await apiService.getComplianceData();
+      const data = await ApiService.getComplianceData();
       setComplianceData(data);
       setError(null);
     } catch (err) {
@@ -29,7 +29,7 @@ export const useCompliance = () => {
 
   const updateComplianceCheck = async (category, itemId, checked) => {
     try {
-      const updatedData = await apiService.updateComplianceCheck(category, itemId, checked);
+      const updatedData = await ApiService.updateComplianceCheck(category, itemId, checked);
       setComplianceData(updatedData);
       return updatedData;
     } catch (err) {
@@ -40,7 +40,7 @@ export const useCompliance = () => {
 
   const updateComplianceScore = async (auditResults) => {
     try {
-      const updatedData = await apiService.updateComplianceScore(auditResults);
+      const updatedData = await ApiService.updateComplianceScore(auditResults);
       setComplianceData(updatedData);
       return updatedData;
     } catch (err) {
@@ -72,7 +72,7 @@ export const useIncidents = () => {
   const fetchIncidents = async () => {
     try {
       setLoading(true);
-      const data = await apiService.getIncidents();
+      const data = await ApiService.getIncidents();
       setIncidents(data);
       setError(null);
     } catch (err) {
@@ -85,7 +85,7 @@ export const useIncidents = () => {
 
   const createIncident = async (incidentData) => {
     try {
-      const newIncident = await apiService.createIncident(incidentData);
+      const newIncident = await ApiService.createIncident(incidentData);
       setIncidents(prev => [newIncident, ...prev]);
       return newIncident;
     } catch (err) {
@@ -96,7 +96,7 @@ export const useIncidents = () => {
 
   const updateIncident = async (id, updates) => {
     try {
-      const updatedIncident = await apiService.updateIncident(id, updates);
+      const updatedIncident = await ApiService.updateIncident(id, updates);
       setIncidents(prev => prev.map(inc => inc.id === id ? updatedIncident : inc));
       return updatedIncident;
     } catch (err) {
@@ -132,18 +132,18 @@ export const useAudit = () => {
       setAuditResults({ loading: true });
       setError(null);
       
-      await apiService.startAudit(target);
+      await ApiService.startAudit(target);
       
       // Poll for results
       const pollResults = async () => {
         try {
-          const results = await apiService.getAuditResults();
+          const results = await ApiService.getAuditResults();
           if (results && results.status === 'completed') {
             setAuditResults(results);
             setIsScanning(false);
             
             // Generate risk assessment
-            const risks = await apiService.generateRiskAssessment(results);
+            const risks = await ApiService.generateRiskAssessment(results);
             setRiskAssessment(risks);
           } else if (results && results.status === 'running') {
             // Continue polling
@@ -169,7 +169,7 @@ export const useAudit = () => {
 
   const getAuditHistory = async (limit = 10) => {
     try {
-      return await apiService.getAuditHistory(limit);
+      return await ApiService.getAuditHistory(limit);
     } catch (err) {
       setError(err.message);
       throw err;
@@ -197,8 +197,8 @@ export const useNotifications = () => {
     try {
       setLoading(true);
       const [notificationsList, countData] = await Promise.all([
-        apiService.getNotifications(),
-        apiService.getUnreadCount()
+        ApiService.getNotifications(),
+        ApiService.getUnreadCount()
       ]);
       setNotifications(notificationsList);
       setUnreadCount(countData.count);
@@ -213,7 +213,7 @@ export const useNotifications = () => {
 
   const markAsRead = async (id) => {
     try {
-      await apiService.markNotificationAsRead(id);
+      await ApiService.markNotificationAsRead(id);
       setNotifications(prev => 
         prev.map(n => n.id === id ? { ...n, read: true } : n)
       );
@@ -226,7 +226,7 @@ export const useNotifications = () => {
 
   const markAllAsRead = async () => {
     try {
-      await apiService.markAllNotificationsAsRead();
+      await ApiService.markAllNotificationsAsRead();
       setNotifications(prev => prev.map(n => ({ ...n, read: true })));
       setUnreadCount(0);
     } catch (err) {
@@ -237,7 +237,7 @@ export const useNotifications = () => {
 
   const deleteNotification = async (id) => {
     try {
-      await apiService.deleteNotification(id);
+      await ApiService.deleteNotification(id);
       setNotifications(prev => prev.filter(n => n.id !== id));
       const notification = notifications.find(n => n.id === id);
       if (notification && !notification.read) {

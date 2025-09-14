@@ -18,17 +18,7 @@ const Header = ({ user, onLogout }) => {
     <header style={styles.header}>
       <div style={styles.headerContent}>
         <div style={styles.logo}>
-          <div style={{
-            width: '32px',
-            height: '32px',
-            backgroundColor: '#3b82f6',
-            borderRadius: '6px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <span style={{color: 'white', fontWeight: 'bold', fontSize: '18px'}}>C</span>
-          </div>
+          <Shield color="#3b82f6" size={32} />
           <div>
             <h1 style={styles.logoText}>CyberCare</h1>
             <p style={styles.logoSubtext}>Moldova Cybersecurity Law Compliance Platform</p>

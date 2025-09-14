@@ -1,8 +1,7 @@
 // src/App.js - Complete modified application with authentication
 import React, { useState, useEffect } from 'react';
-import { HelpCircle, LogOut, BarChart3, CheckCircle, GraduationCap, AlertTriangle, FileText } from 'lucide-react';
+import { HelpCircle, LogOut, BarChart3, CheckCircle, AlertTriangle, FileText } from 'lucide-react';
 import Header from './components/Header';
-import Navigation from './components/Navigation';
 import Dashboard from './components/Dashboard';
 import ComplianceTab from './components/ComplianceTab';
 import IncidentTab from './components/IncidentTab';
@@ -313,6 +312,25 @@ const App = () => {
             <h4 style={{fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#f8fafc'}}>
               Support & Resources
             </h4>
+            <button 
+              onClick={() => setActiveTab('compliance')} 
+              style={{
+                display: 'block', 
+                fontSize: '14px', 
+                color: '#cbd5e1', 
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                padding: '2px 0',
+                marginBottom: '8px',
+                transition: 'color 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#f8fafc'}
+              onMouseLeave={(e) => e.target.style.color = '#cbd5e1'}
+            >
+              Data Retention Policy
+            </button>
             <button 
               onClick={() => setActiveTab('resources')} 
               style={{

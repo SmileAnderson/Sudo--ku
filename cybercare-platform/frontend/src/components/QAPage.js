@@ -3,88 +3,7 @@ import React, { useState } from 'react';
 import { CheckCircle, ArrowRight, RefreshCw } from 'lucide-react';
 import { styles } from '../styles/styles';
 import { useCompliance } from '../hooks/useData';
-
-const QA_QUESTIONS = [
-  {
-    id: 1,
-    question: "Does your company have an active firewall protecting your network?",
-    category: 'network-security',
-    item: 'firewall',
-    type: 'yes-no',
-    helpText: "A firewall is essential for blocking unauthorized network access."
-  },
-  {
-    id: 2,
-    question: "Do all employee accounts require multi-factor authentication (MFA)?",
-    category: 'access-control',
-    item: 'mfa',
-    type: 'yes-no',
-    helpText: "MFA adds an extra layer of security beyond just passwords."
-  },
-  {
-    id: 3,
-    question: "How many employees have access to sensitive company data?",
-    category: 'access-control',
-    item: 'privileged-access',
-    type: 'multiple-choice',
-    options: [
-      { text: "Only specific authorized personnel", value: 'yes', points: 1 },
-      { text: "Most employees have access", value: 'partial', points: 0.5 },
-      { text: "Everyone can access everything", value: 'no', points: 0 }
-    ],
-    helpText: "Access should be limited based on job requirements (principle of least privilege)."
-  },
-  {
-    id: 4,
-    question: "Are your company's data backups encrypted?",
-    category: 'data-protection',
-    item: 'backup-encryption',
-    type: 'yes-no',
-    helpText: "Encrypted backups protect your data even if backup media is stolen."
-  },
-  {
-    id: 5,
-    question: "Do you have a documented incident response plan?",
-    category: 'incident-response',
-    item: 'incident-plan',
-    type: 'yes-no',
-    helpText: "A written plan helps your team respond quickly and effectively to security incidents."
-  },
-  {
-    id: 6,
-    question: "How often does your company conduct cybersecurity training?",
-    category: 'compliance-governance',
-    item: 'employee-training',
-    type: 'multiple-choice',
-    options: [
-      { text: "Annually or more frequently", value: 'yes', points: 1 },
-      { text: "Every few years", value: 'partial', points: 0.5 },
-      { text: "Never or very rarely", value: 'no', points: 0 }
-    ],
-    helpText: "Regular training keeps employees aware of current threats and best practices."
-  },
-  {
-    id: 7,
-    question: "Does your company use antivirus software on all computers?",
-    category: 'monitoring',
-    item: 'threat-detection',
-    type: 'yes-no',
-    helpText: "Antivirus software helps detect and prevent malware infections."
-  },
-  {
-    id: 8,
-    question: "Are software updates applied regularly across your organization?",
-    category: 'compliance-governance',
-    item: 'change-management',
-    type: 'multiple-choice',
-    options: [
-      { text: "Yes, automatically or within days", value: 'yes', points: 1 },
-      { text: "Manually, within weeks", value: 'partial', points: 0.5 },
-      { text: "Rarely or when we remember", value: 'no', points: 0 }
-    ],
-    helpText: "Regular updates patch security vulnerabilities and reduce attack risk."
-  }
-];
+import { QA_QUESTIONS } from '../data/constants'; 
 
 const QAPage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -109,8 +28,9 @@ const QAPage = () => {
   };
 
   const processResults = async () => {
-    setIsSubmitting(true);
-    
+  setIsSubmitting(true);
+  
+  try {
     // Update compliance checks based on answers
     for (const question of QA_QUESTIONS) {
       const answer = answers[question.id];
@@ -123,17 +43,23 @@ const QAPage = () => {
         shouldCheck = selectedOption?.points >= 0.8;
       }
 
+      // Use the compliance mapping fields instead of the old category/item fields
+      const category = question.complianceCategory || question.category;
+      const itemId = question.complianceItemId || question.item;
+
       try {
-        await updateComplianceCheck(question.category, question.item, shouldCheck);
+        await updateComplianceCheck(category, itemId, shouldCheck);
       } catch (error) {
-        console.error('Failed to update compliance:', error);
+        console.error(`Failed to update compliance for ${category}-${itemId}:`, error);
       }
     }
-
+  } catch (error) {
+    console.error('Failed to process assessment results:', error);
+  } finally {
     setIsComplete(true);
     setIsSubmitting(false);
-  };
-
+  }
+};
   const resetAssessment = () => {
     setCurrentQuestion(0);
     setAnswers({});

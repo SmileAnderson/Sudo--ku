@@ -1,6 +1,7 @@
 // routes/compliance.js - Compliance data management
 const express = require('express');
 const { readData, writeData, updateData } = require('../middleware/dataStorage');
+const { COMPLIANCE_CHECKLIST } = require('../data/constants');
 const router = express.Router();
 const { authenticateToken } = require('./auth'); // or wherever your auth middleware is located
 
@@ -8,7 +9,27 @@ const { authenticateToken } = require('./auth'); // or wherever your auth middle
 router.get('/', async (req, res) => {
   try {
     const data = await readData('compliance.json');
-    res.json(data);
+    
+    const convertedData = {
+      lastUpdated: data.lastUpdated,
+      overallScore: data.score || 0,
+      categories: {}
+    };
+    
+    Object.entries(COMPLIANCE_CHECKLIST).forEach(([categoryKey, category]) => {
+      convertedData.categories[categoryKey] = {
+        title: category.title,
+        items: category.items.map(item => ({
+          id: item.id,
+          name: item.text || item.name,
+          completed: data.checks[`${categoryKey}-${item.id}`] || false,
+          required: item.required,
+          resources: item.resources
+        }))
+      };
+    });
+    
+    res.json(convertedData);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch compliance data' });
   }
@@ -24,13 +45,19 @@ router.put('/check', async (req, res) => {
     }
 
     const data = await readData('compliance.json');
-    const checkKey = `${category}-${itemId}`;
     
+    if (!data.checks) {
+      data.checks = {};
+    }
+    
+    const checkKey = `${category}-${itemId}`;
     data.checks[checkKey] = checked;
     data.lastUpdated = new Date().toISOString();
     
-    // Recalculate compliance score based on total possible checks
-    const totalPossibleChecks = 48; // Based on your compliance checklist
+    const totalPossibleChecks = Object.keys(COMPLIANCE_CHECKLIST).reduce((total, categoryKey) => {
+      return total + COMPLIANCE_CHECKLIST[categoryKey].items.length;
+    }, 0);
+    
     const completedChecks = Object.values(data.checks).filter(Boolean).length;
     data.score = Math.round((completedChecks / totalPossibleChecks) * 100);
     
@@ -95,20 +122,26 @@ router.get('/export', async (req, res) => {
 });
 
 // POST /api/compliance/sync-from-assessment
-router.post('/sync-from-assessment', authenticateToken, async (req, res) => {
+router.post('/sync-from-assessment', async (req, res) => {
   try {
     const { complianceUpdates } = req.body;
-    const companyId = req.user.companyId;
     
-    // Update compliance items based on assessment answers
-    for (const update of complianceUpdates) {
-      await updateComplianceItem(companyId, update.category, update.itemId, {
-        completed: update.checked,
-        syncedFromAssessment: update.syncedFromAssessment,
-        syncTimestamp: update.syncTimestamp
-      });
-    }
+    const data = await readData('compliance.json');
     
+    // Update individual checks in the flat format
+    complianceUpdates.forEach(update => {
+      const checkKey = `${update.category}-${update.itemId}`;
+      data.checks[checkKey] = update.checked;
+    });
+    
+    data.lastUpdated = new Date().toISOString();
+    
+    // Recalculate score
+    const totalPossibleChecks = 24;
+    const completedChecks = Object.values(data.checks).filter(Boolean).length;
+    data.score = Math.round((completedChecks / totalPossibleChecks) * 100);
+    
+    await writeData('compliance.json', data);
     res.json({ success: true, updatedItems: complianceUpdates.length });
   } catch (error) {
     res.status(500).json({ error: 'Sync failed' });

@@ -87,7 +87,7 @@ const Dashboard = ({ setActiveTab }) => {
 
 <div style={styles.card}>
   <h3 style={{fontSize: '20px', fontWeight: '600', marginBottom: '16px', color: '#0f172a'}}>
-    Quick Actions
+    Don't know where to start? 
   </h3>
   <div style={styles.grid4}>
     <button 
